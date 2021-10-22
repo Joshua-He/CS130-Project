@@ -13,7 +13,7 @@ import SignInPage from '../SignIn';
  
 import * as ROUTES from '../../constants/routes';
 
-// TODO: Add more components
+// entry page for users
 // <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
 // <Route path={ROUTES.HOME} component={HomePage} />
 // <Route exact path={ROUTES.LANDING} component={LandingPage} />
