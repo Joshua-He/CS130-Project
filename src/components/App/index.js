@@ -22,7 +22,6 @@ class AppBase extends Component {
     return (
       <Router>
         <div>
-          <h1>{this.state.username}</h1>
           <Navigation username={this.state.username} />
     
           <hr />
