@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -8,18 +8,35 @@ import SignUpPage from '../SignUp';
 import SignInPage from '../SignIn';
 import * as ROUTES from '../../constants/routes';
 
-const App = () => (
-  <Router>
-    <div>
-      <Navigation />
+const UsernameContext = React.createContext(''); // create context to display username
+
+class AppBase extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { username: '' };
+  }
+
+  onUsernameChange = (username) => {this.setState({username: username});}
+  
+  render() {
+    return (
+      <Router>
+        <div>
+          <h1>{this.state.username}</h1>
+          <Navigation username={this.state.username} />
+    
+          <hr />
+          <UsernameContext.Provider value={this.state.username}>
+            <Route path={ROUTES.SIGN_UP} render={()=><SignUpPage onUsernameChange={this.onUsernameChange}/>} />
+          </UsernameContext.Provider>
+          <Route path={ROUTES.SIGN_IN} render={()=><SignInPage/>}/>
+          
+          
+        </div>
+      </Router>
+    )
+    
+  }
+}
  
-      <hr />
-      
-      <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-      <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-      
-    </div>
-  </Router>
-);
- 
-export default App;
+export default AppBase;
