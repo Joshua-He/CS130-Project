@@ -6,10 +6,10 @@ import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
  
-const SignInPage = () => (
+const SignInPage = (props) => (
   <div>
     <h1>SignIn</h1>
-    <SignInForm />
+    <SignInForm onUserSignIn={props.onUsernameChange}/>
     <SignUpLink />
   </div>
 );
@@ -35,7 +35,7 @@ class SignInFormBase extends Component {
       .then(() => {
         //login successfully
         this.setState({ ...INITIAL_STATE });
-        this.props.onUserSignIn(this.state.email);
+        this.props.onUserSignIn(email);
         this.props.history.push(ROUTES.HOME);
       })
       .catch(error => {

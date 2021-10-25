@@ -27,9 +27,8 @@ class AppBase extends Component {
           <hr />
           <UsernameContext.Provider value={this.state.username}>
             <Route path={ROUTES.SIGN_UP} render={()=><SignUpPage onUsernameChange={this.onUsernameChange}/>} />
-          </UsernameContext.Provider>
-          <Route path={ROUTES.SIGN_IN} render={()=><SignInPage/>}/>
-          
+            <Route path={ROUTES.SIGN_IN} render={()=><SignInPage onUsernameChange={this.onUsernameChange}/>}/>
+          </UsernameContext.Provider>   
           
         </div>
       </Router>
