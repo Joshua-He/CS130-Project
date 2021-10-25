@@ -5,7 +5,7 @@ import * as ROUTES from '../../constants/routes';
  
 const Navigation = (props) => (
   <div>
-    <h1>Hello, {props.username}</h1>
+    <h1>{props.username}</h1>
     <ul>
       <li>
         <Link to={ROUTES.SIGN_IN}>Sign In</Link>

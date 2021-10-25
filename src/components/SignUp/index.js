@@ -4,14 +4,12 @@ import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
-function SignUpPage(props) {
-  return (
+const SignUpPage = (props) => (
     <div>
     <h1>SignUp</h1>
     <SignUpForm onUserSignUp={props.onUsernameChange}/>
     </div>
-  )
-}
+) 
 
 const INITIAL_STATE = { 
     username: '',
