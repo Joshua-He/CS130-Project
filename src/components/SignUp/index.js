@@ -38,7 +38,6 @@ class SignUpFormBase extends Component {
         this.setState({ ...INITIAL_STATE });
         this.props.onUserSignUp(fullname);
         this.props.history.push(ROUTES.HOME);
-        console.log('before dbcreateUser');
         return authUser.user.uid;
       })
       .then((uid) => {

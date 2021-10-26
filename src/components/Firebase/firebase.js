@@ -35,22 +35,19 @@ class Firebase {
 
   // *** cloud firestore API ***
   dbCreateUser = (email, fullName, isInstructor, userId) => {
-    console.log('Inside doCreateUser');
-    let ref = this.db.collection('users').get();
-    console.log(ref);
-    // firebase.firestore().collection("users").doc(userId).set({
-    //   fullName: fullName,
-    //   email: email,
-    //   isInstructor: isInstructor,
-    //   userId: userId,
-    //   queues: [],
-    // })
-    // .then((res) => {
-    //   console.log(res);
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // })
+    firebase.firestore().collection("users").doc(userId).set({
+      fullName: fullName,
+      email: email,
+      isInstructor: isInstructor,
+      userId: userId,
+      queues: [],
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   };
 }
 

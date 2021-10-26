@@ -37,7 +37,6 @@ class SignInFormBase extends Component {
         this.setState({ ...INITIAL_STATE });
         this.props.onUserSignIn(userCredential.user.uid);
         this.props.history.push(ROUTES.HOME);
-        this.props.firebase.dbCreateUser('','','','');
       })
       .catch(error => {
         this.setState({ error });
