@@ -17,15 +17,16 @@ class AppBase extends Component {
   }
 
   onUsernameChange = (username) => {this.setState({username: username});}
+
+  onSignOut = () => {this.setState({username: ''});}
   
   render() {
     return (
       <Router>
         <div>
-          <Navigation username={this.state.username} />
-    
-          <hr />
           <UsernameContext.Provider value={this.state.username}>
+          <Navigation username={this.state.username} onSignOut={this.onSignOut}/>
+          <hr />
             <Route path={ROUTES.SIGN_UP} render={()=><SignUpPage onUsernameChange={this.onUsernameChange}/>} />
             <Route path={ROUTES.SIGN_IN} render={()=><SignInPage onUsernameChange={this.onUsernameChange}/>}/>
           </UsernameContext.Provider>   
