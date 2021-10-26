@@ -10,7 +10,7 @@ import * as ROUTES from '../../constants/routes';
 
 const UsernameContext = React.createContext(''); // create context to display username
 
-class AppBase extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = { username: '' };
@@ -38,4 +38,4 @@ class AppBase extends Component {
   }
 }
  
-export default AppBase;
+export default App;
