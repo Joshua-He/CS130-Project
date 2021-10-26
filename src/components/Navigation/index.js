@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
  
 import * as ROUTES from '../../constants/routes';
 
-// TODO: if there is a user signed in then don't display sign in link any more
 class Navigation extends Component {
   constructor(props) {
     super(props);
