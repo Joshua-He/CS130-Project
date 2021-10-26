@@ -3,13 +3,14 @@ import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
- 
-const SignUpPage = () => (
-  <div>
+
+const SignUpPage = (props) => (
+    <div>
     <h1>SignUp</h1>
-    <SignUpForm />
-  </div>
-);
+    <SignUpForm onUserSignUp={props.onUsernameChange}/>
+    </div>
+) 
+
 const INITIAL_STATE = { 
     username: '',
     email: '',
@@ -32,6 +33,7 @@ class SignUpFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
+        this.props.onUserSignUp(username);
         this.props.history.push(ROUTES.HOME);
       })
       .catch(error => {
