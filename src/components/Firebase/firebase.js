@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import firebase from "firebase";
 import "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -35,18 +35,12 @@ class Firebase {
 
   // *** cloud firestore API ***
   dbCreateUser = (email, fullName, isInstructor, userId) => {
-    firebase.firestore().collection("users").doc(userId).set({
+    return firebase.firestore().collection("users").doc(userId).set({
       fullName: fullName,
       email: email,
       isInstructor: isInstructor,
       userId: userId,
       queues: [],
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.log(error);
     })
   };
 }

@@ -38,10 +38,12 @@ class SignUpFormBase extends Component {
         this.setState({ ...INITIAL_STATE });
         this.props.onUserSignUp(fullname);
         this.props.history.push(ROUTES.HOME);
-        return authUser.user.uid;
+        return this.props.firebase.dbCreateUser(email,fullname,isInstructor,authUser.user.uid);
       })
-      .then((uid) => {
-        this.props.firebase.dbCreateUser(email,fullname,isInstructor,uid);
+      .then(()=>{
+        console.log("Account created successfully")
+        // TODO: tell user the account is registered successfully
+        // redirect user to signin page
       })
       .catch(error => {
         this.setState({ error });
