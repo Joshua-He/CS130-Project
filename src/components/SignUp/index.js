@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import Firebase, { withFirebase } from '../Firebase';
+import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 const SignUpPage = (props) => (
@@ -12,12 +12,11 @@ const SignUpPage = (props) => (
 ) 
 
 const INITIAL_STATE = { 
-    fullname: '',
+    username: '',
     email: '',
     passwordOne: '',
-    isInstructor: false,
     passwordTwo: '',
-    error: null
+    error: null,
 };
 
 class SignUpFormBase extends Component {
@@ -26,24 +25,16 @@ class SignUpFormBase extends Component {
  
     this.state = { ...INITIAL_STATE };
   }
-  
-  onClick = () => {this.setState({isInstructor: true})};
-
+ 
   onSubmit = event => {
-    const { fullname, email, passwordOne, isInstructor } = this.state;
+    const { username, email, passwordOne } = this.state;
  
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-        this.props.onUserSignUp(fullname);
+        this.props.onUserSignUp(username);
         this.props.history.push(ROUTES.HOME);
-        return this.props.firebase.dbCreateUser(email,fullname,isInstructor,authUser.user.uid);
-      })
-      .then(()=>{
-        console.log("Account created successfully")
-        // TODO: tell user the account is registered successfully
-        // redirect user to signin page
       })
       .catch(error => {
         this.setState({ error });
@@ -58,10 +49,9 @@ class SignUpFormBase extends Component {
  
   render() {
     const {
-        fullname,
+        username,
         email,
         passwordOne,
-        isInstructor,
         passwordTwo,
         error,
     } = this.state;
@@ -70,16 +60,16 @@ class SignUpFormBase extends Component {
     passwordOne !== passwordTwo ||
     passwordOne === '' ||
     email === '' ||
-    fullname === '';
+    username === '';
 
     return (
         <form onSubmit={this.onSubmit}>
         <input
-          name="fullname"
-          value={fullname}
+          name="username"
+          value={username}
           onChange={this.onChange}
           type="text"
-          placeholder="Full name"
+          placeholder="Full Name"
         />
         <input
           name="email"
@@ -102,9 +92,6 @@ class SignUpFormBase extends Component {
           type="password"
           placeholder="Confirm Password"
         />
-        <button type="submit" onClick={this.onClick}>
-            isInstructor
-        </button>
         <button disabled={isInvalid} type="submit">
             Sign Up
         </button>
