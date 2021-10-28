@@ -8,6 +8,7 @@ const ForgetPasswordPage = () => (
     <h1>ForgetPassword</h1>
     <p>Please enter your email to search for your account.</p>
     <ForgetPasswordForm />
+    < BackToSignInLink />
   </div>
 );
  
@@ -71,7 +72,13 @@ const ForgetPasswordLink = () => (
     <Link to={ROUTES.PASSWORD_FORGET}>Forgot your password?</Link>
   </p>
 );
- 
+
+const BackToSignInLink = () => (
+  <p>
+    <Link to={ROUTES.SIGN_IN}>Back to login</Link>
+  </p>
+);
+
 export default ForgetPasswordPage;
  
 const ForgetPasswordForm = withFirebase(ForgetPasswordFormBase);
