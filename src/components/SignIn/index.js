@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import "firebase/firestore";
 import { SignUpLink } from '../SignUp';
+import { ForgetPasswordLink } from '../ForgetPassword';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
  

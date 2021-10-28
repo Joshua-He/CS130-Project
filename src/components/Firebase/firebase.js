@@ -1,5 +1,5 @@
-import firebase from "firebase";
-import "firebase/firestore";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -17,8 +17,8 @@ class Firebase {
   constructor() {
     this.app = firebase.initializeApp(config);
     this.auth = firebase.auth();
-    this.db = firebase.firestore();
   }
+
   // *** Auth API ***
   doCreateUserWithEmailAndPassword = (email, password) =>
   this.auth.createUserWithEmailAndPassword(email,password);
