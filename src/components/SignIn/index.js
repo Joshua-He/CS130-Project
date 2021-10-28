@@ -12,6 +12,7 @@ const SignInPage = (props) => (
     <h1>SignIn</h1>
     <SignInForm />
     <SignUpLink />
+    <ForgetPasswordLink />
   </div>
 );
  
