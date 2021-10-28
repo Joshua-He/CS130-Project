@@ -6,6 +6,7 @@ import {
 import Navigation from '../Navigation';
 import SignUpPage from '../SignUp';
 import SignInPage from '../SignIn';
+import ForgetPasswordPage from '../ForgetPassword'
 import * as ROUTES from '../../constants/routes';
 
 const UsernameContext = React.createContext(''); // create context to display username
@@ -29,6 +30,7 @@ class App extends Component {
           <hr />
             <Route path={ROUTES.SIGN_UP} render={()=><SignUpPage onUsernameChange={this.onUsernameChange}/>} />
             <Route path={ROUTES.SIGN_IN} render={()=><SignInPage onUsernameChange={this.onUsernameChange}/>}/>
+            <Route path={ROUTES.PASSWORD_FORGET} component={ForgetPasswordPage} />
           </UsernameContext.Provider>   
           
         </div>
