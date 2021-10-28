@@ -8,7 +8,7 @@ const ForgetPasswordPage = () => (
     <h1>ForgetPassword</h1>
     <p>Please enter your email to search for your account.</p>
     <ForgetPasswordForm />
-    < BackToSignInLink />
+    <BackToSignInLink />
   </div>
 );
  
