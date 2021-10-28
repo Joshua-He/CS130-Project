@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import Firebase, { withFirebase } from '../Firebase';
+import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import { SignInLink } from '../SignIn';
 
 const SignUpPage = (props) => (
     <div>
     <h1>SignUp</h1>
-    <SignUpForm onUserSignUp={props.onUsernameChange}/>
+    <SignUpForm/>
+    <SignInLink/>
     </div>
 ) 
 
@@ -36,14 +38,12 @@ class SignUpFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-        this.props.onUserSignUp(fullname);
-        this.props.history.push(ROUTES.HOME);
         return this.props.firebase.dbCreateUser(email,fullname,isInstructor,authUser.user.uid);
       })
       .then(()=>{
         console.log("Account created successfully")
         // TODO: tell user the account is registered successfully
-        // redirect user to signin page
+        this.props.history.push(ROUTES.SIGN_IN);
       })
       .catch(error => {
         this.setState({ error });
@@ -61,8 +61,8 @@ class SignUpFormBase extends Component {
         fullname,
         email,
         passwordOne,
-        isInstructor,
         passwordTwo,
+        isInstructor,
         error,
     } = this.state;
 
@@ -102,9 +102,12 @@ class SignUpFormBase extends Component {
           type="password"
           placeholder="Confirm Password"
         />
-        <button type="submit" onClick={this.onClick}>
-            isInstructor
-        </button>
+        <label>Are you an instructor?</label>
+        <select name="isInstructor" defaultValue={isInstructor}
+          onChange={this.onChange}>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
         <button disabled={isInvalid} type="submit">
             Sign Up
         </button>

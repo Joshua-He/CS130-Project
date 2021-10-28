@@ -35,7 +35,7 @@ class Firebase {
 
   // *** cloud firestore API ***
   dbCreateUser = (email, fullName, isInstructor, userId) => {
-    return firebase.firestore().collection("users").doc(userId).set({
+    return this.db.collection("users").doc(userId).set({
       fullName: fullName,
       email: email,
       isInstructor: isInstructor,
@@ -43,6 +43,17 @@ class Firebase {
       queues: [],
     })
   };
+
+  dbGetUserInfo = (userId) => {
+    return this.db.collection("users").doc(userId).get();
+  }
+
+  dbUpdateUserInfo = (userId, fullName, isInstructor) => {
+    return this.db.collection("users").doc(userId).update({
+      fullName: fullName,
+      isInstructor: isInstructor,
+    })
+  }
 }
 
 export default Firebase;
