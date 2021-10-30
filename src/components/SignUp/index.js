@@ -3,19 +3,22 @@ import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import { SignInLink } from '../SignIn';
 
 const SignUpPage = (props) => (
     <div>
     <h1>SignUp</h1>
-    <SignUpForm onUserSignUp={props.onUsernameChange}/>
+    <SignUpForm/>
+    <SignInLink/>
     </div>
 ) 
 
 const INITIAL_STATE = { 
-    username: '',
+    fullName: '',
     email: '',
     passwordOne: '',
     passwordTwo: '',
+    isInstructor: false,
     error: null,
 };
 
@@ -27,14 +30,18 @@ class SignUpFormBase extends Component {
   }
  
   onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
+    const { fullName, email, passwordOne,isInstructor } = this.state;
  
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-        this.props.onUserSignUp(username);
-        this.props.history.push(ROUTES.HOME);
+        return this.props.firebase.dbCreateUser(email,fullName,isInstructor,authUser.user.uid);
+      })
+      .then(()=>{
+        console.log("Account created successfully")
+        // TODO: tell user the account is registered successfully
+        this.props.history.push(ROUTES.SIGN_IN);
       })
       .catch(error => {
         this.setState({ error });
@@ -49,10 +56,11 @@ class SignUpFormBase extends Component {
  
   render() {
     const {
-        username,
+        fullName,
         email,
         passwordOne,
         passwordTwo,
+        isInstructor,
         error,
     } = this.state;
 
@@ -60,13 +68,13 @@ class SignUpFormBase extends Component {
     passwordOne !== passwordTwo ||
     passwordOne === '' ||
     email === '' ||
-    username === '';
+    fullName === '';
 
     return (
         <form onSubmit={this.onSubmit}>
         <input
-          name="username"
-          value={username}
+          name="fullName"
+          value={fullName}
           onChange={this.onChange}
           type="text"
           placeholder="Full Name"
@@ -92,6 +100,12 @@ class SignUpFormBase extends Component {
           type="password"
           placeholder="Confirm Password"
         />
+        <label>Are you an instructor?</label>
+        <select name="isInstructor" defaultValue={isInstructor}
+          onChange={this.onChange}>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
         <button disabled={isInvalid} type="submit">
             Sign Up
         </button>
