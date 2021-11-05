@@ -50,6 +50,16 @@ class Firebase {
     return this.db.collection("users").doc(userId).get();
   }
 
+  dbGetTicket = (ticketId) => {
+    return this.db.collection("ticket").doc(ticketId).get();
+  }
+
+  dbEditTicket = (description, ticketId) => {
+    return this.db.collection("ticket").doc(ticketId).update({
+      description: description,
+    })
+  }
+
   dbUpdateUserInfo = (userId, fullName, isInstructor) => {
     return this.db.collection("users").doc(userId).update({
       fullName: fullName,
