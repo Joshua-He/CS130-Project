@@ -60,6 +60,14 @@ class Firebase {
   dbGetQueue = (queueId) => {
     return this.db.collection("queue").doc(queueId);
   }
+  
+  dbCreateTicket = (description, fullName, userId) => {
+    return this.db.collection("ticket").doc(userId).set({
+      description: description,
+      fullName: fullName,
+      userId: userId,
+    })
+  };
 }
 
 export default Firebase;
