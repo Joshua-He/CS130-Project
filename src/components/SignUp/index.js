@@ -10,11 +10,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignUpPage = (props) => (
   <div>
-    <h1>SignUp</h1>
+    <h1 style={{ textAlign: 'center', color:"#00005c", margin: "5%", boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)"}}>Sign Up</h1>
     <SignUpForm />
-    <SignInLink />
+   
   </div>
 )
+
+
+
 
 const INITIAL_STATE = {
   fullName: '',
@@ -58,6 +61,36 @@ class SignUpFormBase extends Component {
   };
 
   render() {
+    let styles = {
+      marginRight: '300px',
+      marginLeft: '450px',
+      marginBottom: '10px',
+      width: '900px'
+    }
+    let stylesBox = {
+      marginRight: '300px',
+      marginLeft: '450px',
+      marginBottom: '10px',
+      width: '900px'
+    }
+
+    let styles2 = {
+      marginRight: '300px',
+      marginLeft: '450px',
+      paddingTop: '13px',
+      paddingBottom: '13px',
+      marginTop: '20px',
+      width: '900px'
+    }
+    let styles3 = {
+      marginRight: '300px',
+      marginLeft: '450px',
+      paddingTop: '13px',
+      marginTop: '13px',
+      width: '900px',
+      color: 'blue',
+      backgroundColor: "white"
+    }
     const {
       fullName,
       email,
@@ -75,41 +108,40 @@ class SignUpFormBase extends Component {
     return (
 
       <Form onSubmit={this.onSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>First and last name</Form.Label>
+        <Form.Group className="first" controlId="formBasicName" style={styles}>
+          <Form.Label>Full Name</Form.Label>
           <Form.Control type="name" name="fullName" placeholder="Enter name" value={fullName} onChange={this.onChange} />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="email" controlId="formBasicEmail" style={styles}>
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" name="email" placeholder="Enter email" value={email} onChange={this.onChange} />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
+
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="password" controlId="formBasicPassword" style={styles}>
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" name="passwordOne" placeholder="Password" value={passwordOne} onChange={this.onChange} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
 
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="passwordconfirm" controlId="formBasicPassword" style={styles}>
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control type="password" name="passwordTwo" placeholder="Password" value={passwordTwo} onChange={this.onChange} />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" name="isInstructor" label="Are you an instructor?" placeholder="isInstructor" value="isInstructor" onChange={this.onChange}/>
+        <Form.Group className="check" controlId="formBasicCheckbox" style={stylesBox}>
+          <Form.Check type="checkbox" name="isInstructor" label="Are you an instructor?" placeholder="isInstructor" value="isInstructor" onChange={this.onChange} />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" style={styles2}>
           Submit
         </Button>
-        {error && <p>{error.message}</p>}
+
+        <Button variant="primary" style={styles3}>
+          <SignInLink/>
+        </Button>
+
       </Form>
     );
     /*
