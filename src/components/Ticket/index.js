@@ -8,12 +8,7 @@ import Button from '@restart/ui/esm/Button';
 class CreateTicket extends Component{
     constructor(props) {
         super(props);
-        const INITIAL_STATE = {
-          description: '',
-          fullName: this.props.userdata.fullName,
-          userId: this.props.userdata.userId,
-        };
-        this.state = { ...INITIAL_STATE};
+        this.state = this.props.userdata
     }    
 
     onChange = event => {
