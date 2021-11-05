@@ -41,7 +41,7 @@ class UserView extends Component {
         onHide={this.updateUserInfo}
         />
         <SignOutButton/>
-        <CreateQueueButton uid={this.state.userData.userId}/>
+        <CreateQueueButton userData={this.state.userData}/>
       </div>
     )
   }
