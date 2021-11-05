@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import UpdateUserInfoPopUp from './updateUserInfo';
+import CreateTicketPopUp from '../Ticket';
 
 const UserPage = (props) => (
   <div>
@@ -17,6 +18,7 @@ class UserView extends Component {
     super(props);
     this.state = {
       updateUserInfo: false,
+      addTicket: false,
       userData: this.props.userData, 
     };
   }
@@ -31,6 +33,11 @@ class UserView extends Component {
   updateUserInfo = () => {
     this.setState({updateUserInfo:!this.state.updateUserInfo})
   }
+
+  addTicket = () => {
+    this.setState({addTicket:!this.state.addTicket})
+  }
+
   render() {
     return (
       <div>
@@ -39,6 +46,11 @@ class UserView extends Component {
         <UpdateUserInfoPopUp 
         show={this.state.updateUserInfo} updatedata={this.updateData} userdata={this.state.userData}
         onHide={this.updateUserInfo}
+        />
+        <button onClick={this.addTicket}>Add ticket</button>
+        <CreateTicketPopUp 
+        show={this.state.addTicket} userdata={this.state.userData}
+        onHide={this.addTicket}
         />
         <SignOutButton/>
       </div>
