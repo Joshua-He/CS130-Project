@@ -56,6 +56,17 @@ class Firebase {
       isInstructor: isInstructor,
     })
   }
+
+  doCreateQueue = (userId) => {
+    let collection = this.db.collection("queue");
+    let token = collection.doc().id;
+    collection.doc(token).set({
+      description: '',
+      isDeleted: true,
+      ownerId: userId,
+      tickets: [],
+    });
+  }
 }
 
 export default Firebase;

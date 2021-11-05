@@ -12,7 +12,9 @@ class CreateQueue extends Component{
     }
 
     onClick = () => { 
-        this.setState({uid: this.props.userData.userId});
+        let userId = this.props.userData.userId;
+        this.setState({uid: userId});
+        this.props.firebase.doCreateQueue(userId);
     }
 
     render(){
@@ -26,7 +28,7 @@ class CreateQueue extends Component{
         else {
             button = null;
         }
-        
+
         return (
             button
         )
