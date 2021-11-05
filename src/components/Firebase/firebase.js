@@ -56,15 +56,6 @@ class Firebase {
       isInstructor: isInstructor,
     })
   }
-
-  dbCreateTicket = (description, fullName, userId) => {
-    return this.db.collection("ticket").doc(userId).set({
-      description: description,
-      fullName: fullName,
-      userId: userId,
-    })
-  };
-
 }
 
 export default Firebase;
