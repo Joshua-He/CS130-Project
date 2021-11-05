@@ -56,6 +56,10 @@ class Firebase {
       isInstructor: isInstructor,
     })
   }
+
+  dbGetQueue = (queueId) => {
+    return this.db.collection("queue").doc(queueId);
+  }
 }
 
 export default Firebase;
