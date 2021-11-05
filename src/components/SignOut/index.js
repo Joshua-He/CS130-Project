@@ -4,9 +4,6 @@ import * as ROUTES from '../../constants/routes';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 class SignOut extends Component{
-    constructor(props) {
-        super(props);
-    }
 
     onClick = () => { 
         this.props.firebase.doSignOut()

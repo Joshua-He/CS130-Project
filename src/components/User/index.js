@@ -3,8 +3,8 @@ import { withRouter } from 'react-router';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
-import * as ROUTES from '../../constants/routes';
 import UpdateUserInfoPopUp from './updateUserInfo';
+import { CreateQueueButton } from '../QueueManagement';
 
 const UserPage = (props) => (
   <div>
@@ -41,6 +41,7 @@ class UserView extends Component {
         onHide={this.updateUserInfo}
         />
         <SignOutButton/>
+        <CreateQueueButton uid={this.state.userData.userId}/>
       </div>
     )
   }
