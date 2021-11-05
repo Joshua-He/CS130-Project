@@ -18,6 +18,7 @@ class UserView extends Component {
     this.state = {
       updateUserInfo: false,
       userData: this.props.userData, 
+      createQueue: false,
     };
   }
   
@@ -28,6 +29,12 @@ class UserView extends Component {
     this.setState({userData: updatedUserData});
   }
   
+  createQueueSwitch = () => {
+    this.setState(
+      {createQueue:!this.state.createQueue}
+    )
+  }
+
   updateUserInfo = () => {
     this.setState({updateUserInfo:!this.state.updateUserInfo})
   }
@@ -41,7 +48,8 @@ class UserView extends Component {
         onHide={this.updateUserInfo}
         />
         <SignOutButton/>
-        <CreateQueueButton userData={this.state.userData}/>
+        <button onClick={this.createQueueSwitch}>Create queue</button>
+        <CreateQueueButton userData={this.state.userData} show={this.state.createQueue} onHide={this.createQueueSwitch}/>
       </div>
     )
   }
