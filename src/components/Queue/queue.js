@@ -16,17 +16,18 @@ class Queue extends Component {
     };
   }
 
-  useEffect(() => {
-    const tickets = 
-      .collection('')
-      .doc(userId)
-      .onSnapshot(documentSnapshot => {
-        console.log('User data: ', documentSnapshot.data());
-      });
-
-    // Stop listening for updates when no longer required
-    return () => subscriber();
-  }, [userId]);
+  componentDidMount(){
+    this.props.firebase
+    .dbGetQueue(this.state.queueId)
+    .onSnapShot((snapShot) => {
+        console.log('In Queue onSnapshot Called!');
+        let data = snapShot.docs.map(doc => doc.data());
+        this.setState({queueData: data});
+    })
+    .catch(error => {
+        this.setState({ error });
+    });
+  }
 
   render() {
     const {
@@ -34,7 +35,11 @@ class Queue extends Component {
       ticketId,
     } = this.state;
     return (
-        
+        <div>
+            {queueId}
+            <div>{this.queueData.tickets.map((ticketId) => <Ticket ticketId={ticketId}/>)}</div>
+            {error && <p>{error.message}</p>}
+        </div>
     );
   }
 
