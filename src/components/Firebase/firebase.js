@@ -57,12 +57,12 @@ class Firebase {
     })
   }
 
-  doCreateQueue = (userId) => {
+  doCreateQueue = (userId, description) => {
     let collection = this.db.collection("queue");
     let token = collection.doc().id;
     collection.doc(token).set({
-      description: '',
-      isDeleted: true,
+      description: description,
+      isDeleted: false,
       ownerId: userId,
       tickets: [],
     });

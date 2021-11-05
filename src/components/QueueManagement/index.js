@@ -9,10 +9,11 @@ class CreateQueue extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            uid: '',
-            show: true, // if the popup should appear
+            show: true, // if the popup should appear,
+            queueName: '',
         };
     }
+
 
     onHide = () => {
         this.setState({show:!this.state.show})
@@ -22,10 +23,10 @@ class CreateQueue extends Component{
         this.setState({ [event.target.name]: event.target.value });
     };
     
-    onClick = () => { 
+    update = () => { 
         let userId = this.props.userData.userId;
-        this.setState({uid: userId});
-        this.props.firebase.doCreateQueue(userId);
+        const {show, queueName} = this.state;
+        this.props.firebase.doCreateQueue(userId, queueName);
     }
 
     render(){
@@ -43,10 +44,38 @@ class CreateQueue extends Component{
         // return (
         //     button
         // )
+
+        const {
+            uid,
+            show,
+            queueName,
+        } = this.state;
+        
         return (
-            <Modal show={this.props.show}
-            onHide={this.props.onHide}>
-                Pop
+             <Modal
+            show={this.props.show}
+            onHide={this.props.onHide}
+            >
+            <Modal.Header>
+                <Modal.Title>
+                Create New Office Hour Queue
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <input
+                    name="queueName"
+                    value={queueName}
+                    onChange={this.onChange}
+                    type="text"
+                    placeholder="class name"
+                />
+                
+                
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={this.update}>Create</Button>
+                <Button onClick={this.props.onHide}>Cancel</Button>
+            </Modal.Footer>
             </Modal>
         )
     }
