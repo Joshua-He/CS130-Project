@@ -70,7 +70,6 @@ class Firebase {
         queues: firebase.firestore.FieldValue.arrayUnion(token)
       })
     ;
-    return token;
   }
 
 }
