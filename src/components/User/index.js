@@ -12,6 +12,7 @@ const UserPage = (props) => (
   </div>
 );
 
+// TODO: use isInstructor to display component
 class UserView extends Component {
   constructor(props) {
     super(props);
