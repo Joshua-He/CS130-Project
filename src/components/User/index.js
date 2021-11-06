@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import UpdateUserInfoPopUp from './updateUserInfo';
-import CreateTicketPopUp from '../Ticket';
+import CreateTicketPopUp from '../Ticket/createTicket';
 
 const UserPage = (props) => (
   <div>
