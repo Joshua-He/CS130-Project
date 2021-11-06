@@ -14,7 +14,7 @@ class Queue extends Component {
     super(props);
     this.state = {
         queueId: this.props.queueid,
-        ticketId: this.props.ticketid,
+        ticketCreated: false,
     };
   }
 
@@ -29,6 +29,10 @@ class Queue extends Component {
     .catch(error => {
         this.setState({ error });
     });
+
+    // find the ticket
+    this.props.firebase
+    .
   }
 
   render() {
@@ -40,8 +44,9 @@ class Queue extends Component {
         <div>
             {queueId}
             <div>{this.queueData.tickets.map((ticketId) => <Ticket ticketId={ticketId}/>)}</div>
-            {error && <p>{error.message}</p>}
+
             <CreateTicketPopUp userdata={this.props.userdata}/>
+            {error && <p>{error.message}</p>}
         </div>
     );
   }

@@ -15,7 +15,7 @@ class QueueList extends Component {
 
   render() {
     return (
-      <div>{ticketsMap.map((queueId, ticketId) => <Queue queueid={queueId} ticketid={ticketId} userdata={this.state.userdata}/>)}</div>
+      <div>{ticketsMap.map((queueId, ticketId) => <Queue queueid={queueId} userdata={this.state.userdata}/>)}</div>
     );
   }
 
