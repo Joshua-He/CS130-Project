@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Ticket from '../Ticket/Ticket';
+import CreateTicketPopUp from '../Ticket/createTicket';
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
 const Queue = () => (
@@ -39,6 +41,7 @@ class Queue extends Component {
             {queueId}
             <div>{this.queueData.tickets.map((ticketId) => <Ticket ticketId={ticketId}/>)}</div>
             {error && <p>{error.message}</p>}
+            <CreateTicketPopUp userdata={this.props.userdata}/>
         </div>
     );
   }

@@ -10,16 +10,12 @@ const QueueList = () => (
 class QueueList extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.userdata;
+    this.state = {"userdata":this.props.userdata};
   }
 
   render() {
-    const {
-      ticketsMap,
-      error,
-    } = this.state;
     return (
-      <div>{ticketsMap.map((queueId, ticketId) => <Queue queueid={queueId} ticketid={ticketId}/>)}</div>
+      <div>{ticketsMap.map((queueId, ticketId) => <Queue queueid={queueId} ticketid={ticketId} userdata={this.state.userdata}/>)}</div>
     );
   }
 
