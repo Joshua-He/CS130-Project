@@ -58,12 +58,14 @@ class Firebase {
   }
 
   dbCreateTicket = (description, fullName, userId) => {
-    return this.db.collection("ticket").doc(userId).set({
+    return this.db.collection("ticket").add({
       description: description,
       fullName: fullName,
       userId: userId,
+      timestamp: this.db.FieldValue.serverTimestamp()
     })
   };
+
 
 }
 

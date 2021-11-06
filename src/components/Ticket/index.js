@@ -8,8 +8,11 @@ import Button from '@restart/ui/esm/Button';
 class CreateTicket extends Component{
     constructor(props) {
         super(props);
-        this.state = this.props.userdata
-    }    
+        this.state = {
+            userData = this.props.userdata,
+            queueId = this.props.queueid
+        }
+    }
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -19,8 +22,9 @@ class CreateTicket extends Component{
         const {description, fullName, userId} = this.state;
         this.props.firebase
         .dbCreateTicket(description, fullName, userId)
-        .then (() => {
-            console.log("ticket created")
+        .then ((ticketData) => {
+            let ticketId = ticketData.id
+            console.log("ticket created successfully with ticketId:",ticketId);
             this.props.onHide();
         })
         .catch(error => {
