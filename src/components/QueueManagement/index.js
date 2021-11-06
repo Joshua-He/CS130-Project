@@ -25,29 +25,12 @@ class CreateQueue extends Component{
     
     update = () => { 
         let userId = this.props.userData.userId;
-        const {show, queueName} = this.state;
-        this.props.firebase.doCreateQueue(userId, queueName);
+        const {queueName} = this.state;this.props.firebase.doCreateQueue(userId, queueName);
+        
     }
 
     render(){
-        // let isInstructor = this.props.userData.isInstructor;
-        // let button;
-        // if (isInstructor) {
-        //     button = <button type="submit" onClick={this.onClick}>
-        //     Create Queue {this.state.uid}
-        //     </button>
-        // }
-        // else {
-        //     button = null;
-        // }
-
-        // return (
-        //     button
-        // )
-
         const {
-            uid,
-            show,
             queueName,
         } = this.state;
         
