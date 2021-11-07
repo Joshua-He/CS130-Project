@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { withFirebase } from '../Firebase';
 import Ticket from '../Ticket/Ticket';
+import { compose } from 'recompose';
 import CreateTicketPopUp from '../Ticket/createTicket';
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
-const Queue = () => (
-  <div>
-    <Queue/>
-  </div>
-);
-
-class Queue extends Component {
+class QueueComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,15 +27,16 @@ class Queue extends Component {
         this.setState({ error });
     });
 
-    // find the ticket
-    this.props.firebase
-    .
+    // // find the ticket
+    // this.props.firebase
+    // .
   }
 
   render() {
     const {
       queueId,
       ticketId,
+      error,
     } = this.state;
     return (
         <div>
@@ -52,4 +50,10 @@ class Queue extends Component {
   }
 
 }
-export { Queue };
+
+const Queue = compose(
+    withRouter,
+    withFirebase
+)(QueueComponent);
+
+export default Queue;

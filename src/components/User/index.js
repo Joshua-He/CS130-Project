@@ -4,6 +4,7 @@ import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
 import * as ROUTES from '../../constants/routes';
+import Queues from '../Queue/queueList';
 import UpdateUserInfoPopUp from './updateUserInfo';
 import CreateTicketPopUp from '../Ticket/createTicket';
 
@@ -47,7 +48,7 @@ class UserView extends Component {
         show={this.state.updateUserInfo} updatedata={this.updateData} userdata={this.state.userData}
         onHide={this.updateUserInfo}
         />
-        <Queue userData={this.state.userData}/>
+        <Queues userData={this.state.userData}/>
         <button onClick={this.addTicket}>Add ticket</button>
         <CreateTicketPopUp 
         show={this.state.addTicket} userdata={this.state.userData}

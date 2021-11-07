@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 
-const Ticket = () => (
-    <div>
-        <Ticket />
-    </div>
-);
 
 class Ticket extends Component {
     constructor(props) {
@@ -34,4 +29,5 @@ class Ticket extends Component {
     }
 
 }
-export { Ticket };
+
+export default Ticket;
