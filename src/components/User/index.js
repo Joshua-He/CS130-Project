@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { Link, withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
@@ -10,7 +10,7 @@ import CreateTicketPopUp from '../Ticket/createTicket';
 
 const UserPage = (props) => (
   <div>
-    <User userData={props.location.state.userData}/>
+    <User userdata={props.location.state.userData}/>
   </div>
 );
 
@@ -20,7 +20,7 @@ class UserView extends Component {
     this.state = {
       updateUserInfo: false,
       addTicket: false,
-      userData: this.props.userData, 
+      userData: this.props.userdata, 
     };
   }
   
@@ -48,7 +48,7 @@ class UserView extends Component {
         show={this.state.updateUserInfo} updatedata={this.updateData} userdata={this.state.userData}
         onHide={this.updateUserInfo}
         />
-        <Queues userData={this.state.userData}/>
+        <Queues userdata={this.state.userData}/>
         <button onClick={this.addTicket}>Add ticket</button>
         <CreateTicketPopUp 
         show={this.state.addTicket} userdata={this.state.userData}
@@ -59,6 +59,7 @@ class UserView extends Component {
     )
   }
 }
+
 
 const User = compose(
   withRouter,

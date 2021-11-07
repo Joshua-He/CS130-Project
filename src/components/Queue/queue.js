@@ -1,49 +1,48 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
-import Ticket from '../Ticket/Ticket';
+import Button from 'react-bootstrap/Button';
 import { compose } from 'recompose';
-import CreateTicketPopUp from '../Ticket/createTicket';
-import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
+import * as ROUTES from '../../constants/routes';
 
-class QueueComponent extends Component {
+class QueueDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
         queueId: this.props.queueid,
         ticketCreated: false,
+        userData: this.props.userdata,
     };
   }
 
   componentDidMount(){
     this.props.firebase
     .dbGetQueue(this.state.queueId)
-    .onSnapShot((snapShot) => {
+    .onSnapshot((snapShot) => {
         console.log('In Queue onSnapshot Called!');
-        let data = snapShot.docs.map(doc => doc.data());
+        let data = snapShot.data();
         this.setState({queueData: data});
     })
-    .catch(error => {
-        this.setState({ error });
-    });
+  }
 
-    // // find the ticket
-    // this.props.firebase
-    // .
+  onClick = () => {
+      console.log("enter queue: ",this.state.userdata)
+      this.props.history.push({pathname: ROUTES.QUEUE + this.state.queueId, state: this.state});
   }
 
   render() {
     const {
       queueId,
-      ticketId,
+      queueData,
       error,
     } = this.state;
     return (
         <div>
-            {queueId}
-            <div>{this.queueData.tickets.map((ticketId) => <Ticket ticketId={ticketId}/>)}</div>
-
-            <CreateTicketPopUp userdata={this.props.userdata}/>
+            Queue Id: {queueId} <br/>
+            Queue Description: {queueData && queueData.description}<br/>
+            <Button variant="primary" onClick={this.onClick}>
+               enter this queue
+            </Button>
             {error && <p>{error.message}</p>}
         </div>
     );
@@ -54,6 +53,6 @@ class QueueComponent extends Component {
 const Queue = compose(
     withRouter,
     withFirebase
-)(QueueComponent);
+)(QueueDashboard);
 
 export default Queue;

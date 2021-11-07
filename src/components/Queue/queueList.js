@@ -7,12 +7,15 @@ import { compose } from 'recompose';
 class QueueList extends Component {
   constructor(props) {
     super(props);
-    this.state = {"userdata":this.props.userdata};
+    this.state = this.props.userdata;
   }
 
   render() {
+    console.log("queue ids inside queueList",this.state);
     return (
-      <div>{this.state.userdata.queues.map((queueId) => <Queue queueid={queueId} userdata={this.state.userdata}/>)}</div>
+        <div>
+        {this.state.queues && <div>{this.state.queues.map((queueId) => <Queue queueid={queueId} userdata={this.state}/>)}</div>}
+        </div>
     );
   }
 
