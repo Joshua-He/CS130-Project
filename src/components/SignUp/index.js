@@ -10,9 +10,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignUpPage = (props) => (
   <div>
-    <h1 style={{ textAlign: 'center', color:"#00005c", margin: "5%", boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)"}}>Sign Up</h1>
+    <h1 style={{ textAlign: 'center', color: "#00005c", margin: "5%", }}>Sign Up</h1>
+
     <SignUpForm />
-   
+
   </div>
 )
 
@@ -63,31 +64,32 @@ class SignUpFormBase extends Component {
   render() {
     let styles = {
       marginRight: '300px',
-      marginLeft: '450px',
-      marginBottom: '10px',
-      width: '900px'
+      marginLeft: '25%',
+      marginBottom: '1%',
+      width: '50%'
     }
     let stylesBox = {
       marginRight: '300px',
-      marginLeft: '450px',
-      marginBottom: '10px',
-      width: '900px'
+      marginLeft: '25%',
+      marginBottom: '0%',
+      width: '50%'
     }
 
     let styles2 = {
       marginRight: '300px',
-      marginLeft: '450px',
+      marginLeft: '25%',
+      marginBottom: '1%',
+      width: '50%',
       paddingTop: '13px',
       paddingBottom: '13px',
       marginTop: '20px',
-      width: '900px'
+
     }
     let styles3 = {
       marginRight: '300px',
-      marginLeft: '450px',
-      paddingTop: '13px',
-      marginTop: '13px',
-      width: '900px',
+      marginLeft: '25%',
+      marginBottom: '2%',
+      width: '50%',
       color: 'blue',
       backgroundColor: "white"
     }
@@ -138,9 +140,12 @@ class SignUpFormBase extends Component {
           Submit
         </Button>
 
-        <Button variant="primary" style={styles3}>
-          <SignInLink/>
-        </Button>
+    
+          <h1 style={{fontSize: "small", marginLeft: "0%",textAlign: 'center'}}>
+          <SignInLink />
+          </h1>
+
+      
 
       </Form>
     );
@@ -194,7 +199,7 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
   <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    Don't have an account? <Link to={ROUTES.SIGN_UP} >Sign Up</Link>
   </p>
 );
 const SignUpForm = compose(
