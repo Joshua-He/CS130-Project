@@ -11,7 +11,7 @@ class EditTicket extends Component {
         this.state =
         {
             userdata: this.props.userdata,
-            ticketId: this.props.ticketId,
+            ticketId: this.props.userticketId,
             ticketData:{},
         }
     }
@@ -52,8 +52,7 @@ class EditTicket extends Component {
         } = this.state.ticketData;
 
         const isInvalid =
-            description === '' ||
-            ticketId === '';
+            description === ''
 
         return (
             <Modal

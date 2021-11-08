@@ -50,10 +50,6 @@ class UserView extends Component {
         />
         <Queues userdata={this.state.userData}/>
         <button onClick={this.addTicket}>Add ticket</button>
-        <CreateTicketPopUp 
-        show={this.state.addTicket} userdata={this.state.userData}
-        onHide={this.addTicket}
-        />
         <SignOutButton/>
       </div>
     )

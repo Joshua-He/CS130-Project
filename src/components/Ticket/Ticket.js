@@ -1,33 +1,43 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { withFirebase } from '../Firebase';
+import { compose } from 'recompose';
 
-
-class Ticket extends Component {
+class TicketView extends Component {
     constructor(props) {
         super(props);
-        this.state = { ticketId: this.props.ticketId, ticketData:{} };
+        this.state = {
+            ticketId: this.props.ticketid,
+            ticketData: {}
+        };
     }
 
     componentDidMount() {
         this.props.firebase
             .dbGetTicket(this.state.ticketId)
-            .onSnapShot((snapShot) => {
-                console.log("In Ticket onSnapshot called!")
-                let data = snapShot.docs.map(doc => doc.data());
-                this.setState({ ticketData:data });
+            .onSnapshot((snapShot) => {
+                console.log(this.state.ticketId)
+                console.log("In Ticket onSnapshot called!",snapShot.data())
+                this.setState({ ticketData:snapShot.data()});
             })
     }
 
     render() {
-        const {ticketData} = this.state
         return (
             <div>
-               {ticketData && 
-               <div>ticketData.fullName</div> &&
-               <div>ticketData.description</div>}
+               {this.state.ticketData && 
+               <div>Ticket created by: {this.state.ticketData.fullName} <br/>
+               Description: {this.state.ticketData.description}</div>
+                }
             </div>
         );
     }
 
 }
+
+const Ticket = compose(
+    withRouter,
+    withFirebase
+)(TicketView);
 
 export default Ticket;
