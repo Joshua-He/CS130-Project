@@ -24,6 +24,14 @@ class QueueWithTickets extends Component {
   }
 
   componentDidMount() {
+    this.props.firebase
+    .dbGetQueue(this.state.queueId)
+    .onSnapshot((snapShot) => {
+        console.log('In Queue onSnapshot Called!');
+        let data = snapShot.data();
+        this.setState({queueData: data});
+    })
+    
     console.log("queuepage state", this.state)
     for (let i = 0; i < this.state.userData.tickets.length; i++){
         if (Object.keys(this.state.queueData.tickets).includes(this.state.userData.tickets[i])){
