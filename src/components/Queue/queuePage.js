@@ -34,6 +34,10 @@ class QueueWithTickets extends Component {
     this.setState({createdTicket: false, addTicket:false,editTicket:false})
   }
 
+  sortTimestamp = (keys) => {
+      return keys.sort((k1,k2) => this.state.queueData.tickets[k1]['seconds'] - this.state.queueData.tickets[k2]['seconds'])
+  }
+  
   addTicket = () => {
     this.setState({addTicket:!this.state.addTicket})
   }
@@ -47,13 +51,13 @@ class QueueWithTickets extends Component {
     this.props.history.push({ pathname: ROUTES.USER_PAGE, state: {userData: this.state.userData}});
   }
   render() {
-    console.log("queue ids inside queueList",this.state);
+    console.log("queue ids inside queueList",this.state.queueData);
     const queueData = this.state.queueData;
-    // let orderedTicketIds = this.queueData.tickets.sort((a,b) => {return a[1] - b[1]})
-    console.log("queue Data",queueData);
+    let orderedTicketIds = this.sortTimestamp(Object.keys(queueData.tickets))
+    console.log("orderedTicketIds",orderedTicketIds);
     return (
         <div>
-            <div>{Object.keys(queueData.tickets) && Object.keys(queueData.tickets).map((ticketId) => <Ticket ticketid={ticketId}/>)}</div>
+            <div>{orderedTicketIds && orderedTicketIds.map((ticketId) => <Ticket ticketid={ticketId}/>)}</div>
             
             <div>
                 {
