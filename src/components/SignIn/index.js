@@ -10,12 +10,18 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 const SignInPage = (props) => (
   <div>
-    <h1>Sign In</h1>
+    <h1 style={{fontFamily: 'arial', textAlign: 'center', color: "#00005c", margin: "3.4%", }}>Sign In</h1>
     <SignInForm />
-    <SignUpLink />
-    <ForgetPasswordLink />
+    <h1 style={{fontSize: "small", marginLeft: "0%",textAlign: 'center'}}>
+      <SignUpLink
+      />
+      <ForgetPasswordLink />
+    </h1>
+
+    
   </div>
 );
 
@@ -60,9 +66,16 @@ class SignInFormBase extends Component {
 
     const isInvalid = password === '' || email === '';
 
+    let styles = {
+      marginRight: '300px',
+      marginLeft: '25%',
+      marginBottom: '2%',
+      width: '50%'
+    }
+
     return (
       <Form onSubmit={this.onSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicEmail" style={styles}>
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" name="email" placeholder="Enter email" value={email} onChange={this.onChange} />
           <Form.Text className="text-muted">
@@ -70,13 +83,13 @@ class SignInFormBase extends Component {
           </Form.Text>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPassword" style={styles}>
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" name="password" placeholder="Password" value={password} onChange={this.onChange} />
         </Form.Group>
 
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" style={styles}>
           Sign In
         </Button>
         {error && <p>{error.message}</p>}
@@ -109,7 +122,7 @@ class SignInFormBase extends Component {
 }
 
 const SignInLink = () => (
-  <p>
+  <p >
     Already have an account? <Link to={ROUTES.SIGN_IN}>Sign in</Link>
   </p>
 );
