@@ -53,7 +53,7 @@ class QueueWithTickets extends Component {
     console.log("queue Data",queueData);
     return (
         <div>
-            {/* <div>{queueData.tickets && queueData.tickets.map((ticketId) => <Ticket ticketid={ticketId}/>)}</div> */}
+            <div>{Object.keys(queueData.tickets) && Object.keys(queueData.tickets).map((ticketId) => <Ticket ticketid={ticketId}/>)}</div>
             
             <div>
                 {

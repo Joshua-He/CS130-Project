@@ -8,7 +8,6 @@ class TicketView extends Component {
         super(props);
         this.state = {
             ticketId: this.props.ticketid,
-            ticketData: {}
         };
     }
 
@@ -25,10 +24,15 @@ class TicketView extends Component {
     render() {
         return (
             <div>
-               {this.state.ticketData && 
-               <div>Ticket created by: {this.state.ticketData.fullName} <br/>
-               Description: {this.state.ticketData.description}</div>
-                }
+                <br/>
+               {!!this.state.ticketData && !this.state.ticketData.isResolved &&
+                <div>
+                Ticket created by: {this.state.ticketData.ownerName} 
+                <br/>
+                Ticket created at: {this.state.ticketData.createdAt.toDate().toUTCString()}
+                <br/>
+                Description: {this.state.ticketData.description}</div>
+               }
             </div>
         );
     }

@@ -66,6 +66,7 @@ class Firebase {
       ownerName: ownerName,
       userId: userId,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      isResolved: false,
     })
   };
 
