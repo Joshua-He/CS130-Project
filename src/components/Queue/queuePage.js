@@ -26,7 +26,7 @@ class QueueWithTickets extends Component {
   componentDidMount() {
     console.log("queuepage state", this.state)
     for (let i = 0; i < this.state.userData.tickets.length; i++){
-        if (this.state.queueData.tickets.includes(this.state.userData.tickets[i])){
+        if (Object.keys(this.state.queueData.tickets).includes(this.state.userData.tickets[i])){
             this.setState({addTicket:false,editTicket:false, createdTicket: true, userTicketId: this.state.userData.tickets[i]})
             return
         }
@@ -64,8 +64,8 @@ class QueueWithTickets extends Component {
             <div>
             {
                 this.state.createdTicket
-                ?  <EditTicketPopUp userticketid={this.state.userTicketId} queueid={queueData.queueId} userdata={this.state.userData}/> 
-                :  <CreateTicketPopUp onHide={this.addTicket} show={this.state.addTicket} queueid={queueData.queueId} userdata={this.state.userData}/> }
+                ?  <EditTicketPopUp userticketid={this.state.userTicketId} queueid={this.state.queueId} userdata={this.state.userData}/> 
+                :  <CreateTicketPopUp onHide={this.addTicket} show={this.state.addTicket} queueid={this.state.queueId} userdata={this.state.userData}/> }
             </div>
             <Button variant="primary" onClick={this.resolveTicket}>
                 Resolve ticket

@@ -35,9 +35,7 @@ class UserView extends Component {
     this.setState({updateUserInfo:!this.state.updateUserInfo})
   }
 
-  addTicket = () => {
-    this.setState({addTicket:!this.state.addTicket})
-  }
+ 
 
   render() {
     return (
@@ -49,7 +47,7 @@ class UserView extends Component {
         onHide={this.updateUserInfo}
         />
         <Queues userdata={this.state.userData}/>
-        <button onClick={this.addTicket}>Add ticket</button>
+        
         <SignOutButton/>
       </div>
     )

@@ -9,25 +9,34 @@ class CreateTicket extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            userData: this.props.userdata,
-            ticketId: this.props.userticketId,
-        }
+            ownerName: this.props.userdata.fullName,
+            userId: this.props.userdata.userId,
+            description: '',
+            isResolved: false,
+            ticketId: '',
+            queueId: this.props.queueid,
+        };
     }    
 
     onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({[event.target.name]: event.target.value });
     };
 
-    update = () => {
-        const {description, fullName, userId} = this.state;
+    create = () => {
+        const {ownerName, userId, description} = this.state;
         this.props.firebase
-        .dbCreateTicket(description, fullName, userId)
-        // .then (() => {
-            
-        // })
-        .then(() => {
-            console.log("ticket created")
-            this.props.onHide();
+        .dbCreateTicket(description, ownerName, userId)
+        .then((ticketRef) => {
+            this.setState({ticketId: ticketRef.id})
+            return ticketRef.id
+        })
+        .then((ticketId) => {
+            return this.props.firebase.dbGetTicket(ticketId).get()
+        })
+        .then((ticket) => {return ticket.data()})
+        .then((ticketData) => {
+            console.log(ticketData.createdAt)
+            return this.props.firebase.dbAddTicketToQueue(this.state.ticketId,this.state.queueId, ticketData.createdAt)
         })
         .catch(error => {
             this.setState({ error });
@@ -36,14 +45,14 @@ class CreateTicket extends Component{
     render(){   
         const {
             description,
-            fullName,
+            ownerName,
             userId,
             error,
         } = this.state;
         
         const isInvalid =
         description === '' ||
-        fullName === '' ||
+        ownerName === '' ||
         userId === '';
 
         return (
@@ -67,7 +76,7 @@ class CreateTicket extends Component{
                 />
             </Modal.Body>
             <Modal.Footer>
-                <Button disabled={isInvalid} onClick={this.update}>Save</Button>
+                <Button disabled={isInvalid} onClick={this.create}>Save</Button>
                 <Button onClick={this.props.onHide}>Cancel</Button>
                 {error && <p>{error.message}</p>}
             </Modal.Footer>

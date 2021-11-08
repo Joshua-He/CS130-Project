@@ -1,6 +1,5 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebase from "firebase";
+import "firebase/firestore";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -61,11 +60,12 @@ class Firebase {
     return this.db.collection("queue").doc(queueId);
   }
   
-  dbCreateTicket = (description, fullName, userId) => {
-    return this.db.collection("ticket").doc(userId).set({
+  dbCreateTicket = (description, ownerName, userId) => {
+    return this.db.collection("ticket").add({
       description: description,
-      fullName: fullName,
+      ownerName: ownerName,
       userId: userId,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     })
   };
 
@@ -73,9 +73,10 @@ class Firebase {
     return this.db.collection("ticket").doc(ticketId);
   }
 
-  dbAddTicketToQueue = (ticketId, queueId) => {
+  dbAddTicketToQueue = (ticketId, queueId, createdAt) => {
+    console.log("add ticket to queue")
     return this.db.collection("queue").doc(queueId).update({
-      [`tickets.${ticketId}`] : queueId
+      [`tickets.${ticketId}`]:createdAt
     })
   }
 }

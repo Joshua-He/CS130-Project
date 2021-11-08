@@ -46,7 +46,6 @@ class SignUpFormBase extends Component {
       })
       .then(() => {
         console.log("Account created successfully")
-        // TODO: tell user the account is registered successfully
         this.props.history.push(ROUTES.SIGN_IN);
       })
       .catch(error => {
