@@ -31,12 +31,11 @@ class SignUpFormBase extends Component {
  
   onSubmit = event => {
     const { fullName, email, passwordOne,isInstructor } = this.state;
-    let isInstructorBool = isInstructor === "true" ? true : false;
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-        return this.props.firebase.dbCreateUser(email,fullName,isInstructorBool,authUser.user.uid);
+        return this.props.firebase.dbCreateUser(email,fullName,isInstructor,authUser.user.uid);
       })
       .then(()=>{
         console.log("Account created successfully")

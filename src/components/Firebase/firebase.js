@@ -40,7 +40,7 @@ class Firebase {
     return this.db.collection("users").doc(userId).set({
       fullName: fullName,
       email: email,
-      isInstructor: isInstructor,
+      isInstructor: isInstructor === "true" ? true : false,
       userId: userId,
       queues: [],
     })
@@ -53,7 +53,7 @@ class Firebase {
   dbUpdateUserInfo = (userId, fullName, isInstructor) => {
     return this.db.collection("users").doc(userId).update({
       fullName: fullName,
-      isInstructor: isInstructor,
+      isInstructor: isInstructor === "true" ? true : false,
     })
   }
 
