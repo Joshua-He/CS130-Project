@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { Link, withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
-import UpdateUserInfoPopUp from './updateUserInfo';
 import { CreateQueueButton } from '../QueueManagement';
+import * as ROUTES from '../../constants/routes';
+import Queues from '../Queue/queueList';
+import UpdateUserInfoPopUp from './updateUserInfo';
+import CreateTicketPopUp from '../Ticket/createTicket';
 
 const UserPage = (props) => (
   <div>
-    <User userData={props.location.state.userData}/>
+    <User userdata={props.location.state.userData}/>
   </div>
 );
 
@@ -20,6 +23,7 @@ class UserView extends Component {
       updateUserInfo: false,
       userData: this.props.userData, 
       createQueue: false,
+      addTicket: false,
     };
   }
   
@@ -58,6 +62,8 @@ class UserView extends Component {
         show={this.state.updateUserInfo} updatedata={this.updateData} userdata={this.state.userData}
         onHide={this.updateUserInfo}
         />
+        <Queues userdata={this.state.userData}/>
+        
         <SignOutButton/>
         {this.isInstructor()}
         <CreateQueueButton userData={this.state.userData} show={this.state.createQueue} onHide={this.createQueueSwitch}/>
@@ -65,6 +71,7 @@ class UserView extends Component {
     )
   }
 }
+
 
 const User = compose(
   withRouter,

@@ -8,7 +8,8 @@ import {
 import UserPage from '../User';
 import SignUpPage from '../SignUp';
 import SignInPage from '../SignIn';
-import ForgetPasswordPage from '../ForgetPassword'
+import ForgetPasswordPage from '../ForgetPassword';
+import QueuePage from '../Queue/queuePage';
 import * as ROUTES from '../../constants/routes';
 
 const Navigation = () => {
@@ -40,6 +41,7 @@ class App extends Component {
           <Route path={ROUTES.SIGN_IN} component={SignInPage} />
           <Route path={ROUTES.USER_PAGE} component={UserPage}/>
           <Route path={ROUTES.PASSWORD_FORGET} component={ForgetPasswordPage} />
+          <Route path={ROUTES.QUEUE} component={QueuePage}/>
         </div>
       </Router> 
     )

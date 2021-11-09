@@ -1,6 +1,5 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebase from "firebase";
+import "firebase/firestore";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -72,6 +71,30 @@ class Firebase {
     ;
   }
 
+  dbGetQueue = (queueId) => {
+    return this.db.collection("queue").doc(queueId);
+  }
+  
+  dbCreateTicket = (description, ownerName, userId) => {
+    return this.db.collection("ticket").add({
+      description: description,
+      ownerName: ownerName,
+      userId: userId,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      isResolved: false,
+    })
+  };
+
+  dbGetTicket = (ticketId) => {
+    return this.db.collection("ticket").doc(ticketId);
+  }
+
+  dbAddTicketToQueue = (ticketId, queueId, createdAt) => {
+    console.log("add ticket to queue")
+    return this.db.collection("queue").doc(queueId).update({
+      [`tickets.${ticketId}`]:createdAt
+    })
+  }
 }
 
 export default Firebase;
