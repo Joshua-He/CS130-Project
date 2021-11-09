@@ -37,13 +37,22 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = event => {
+<<<<<<< HEAD
     const { fullName, email, passwordOne, isInstructor } = this.state;
 
+=======
+    const { fullName, email, passwordOne,isInstructor } = this.state;
+    let isInstructorBool = isInstructor === "true" ? true : false;
+>>>>>>> fcf22bf... make isInstructor a boolean when passed to firebase
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
+<<<<<<< HEAD
         return this.props.firebase.dbCreateUser(email, fullName, isInstructor, authUser.user.uid);
+=======
+        return this.props.firebase.dbCreateUser(email,fullName,isInstructorBool,authUser.user.uid);
+>>>>>>> fcf22bf... make isInstructor a boolean when passed to firebase
       })
       .then(() => {
         console.log("Account created successfully")
