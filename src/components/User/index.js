@@ -21,7 +21,7 @@ class UserView extends Component {
     super(props);
     this.state = {
       updateUserInfo: false,
-      userData: this.props.userData, 
+      userData: this.props.userdata, 
       createQueue: false,
       addTicket: false,
     };
