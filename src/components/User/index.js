@@ -39,6 +39,16 @@ class UserView extends Component {
   updateUserInfo = () => {
     this.setState({updateUserInfo:!this.state.updateUserInfo})
   }
+
+  isInstructor = () => {
+    if (this.state.userData.isInstructor === true) {
+      return (
+        <button onClick={this.createQueueSwitch}>Create queue</button>
+      );
+    }
+    return null;
+  }
+
   render() {
     return (
       <div>
@@ -49,7 +59,7 @@ class UserView extends Component {
         onHide={this.updateUserInfo}
         />
         <SignOutButton/>
-        <button onClick={this.createQueueSwitch}>Create queue</button>
+        {this.isInstructor()}
         <CreateQueueButton userData={this.state.userData} show={this.state.createQueue} onHide={this.createQueueSwitch}/>
       </div>
     )
