@@ -25,7 +25,7 @@ class QueueDashboard extends Component {
     })
   }
 
-  onClick = () => {
+  enterQueue = () => {
       console.log("enter queue: ",this.state.userdata)
       this.props.history.push({pathname: ROUTES.QUEUE + this.state.queueId, state: this.state});
   }
@@ -40,7 +40,7 @@ class QueueDashboard extends Component {
         <div>
             Queue Id: {queueId} <br/>
             Queue Description: {queueData && queueData.description}<br/>
-            <Button variant="primary" onClick={this.onClick}>
+            <Button variant="primary" onClick={this.enterQueue}>
                enter this queue
             </Button>
             {error && <p>{error.message}</p>}
