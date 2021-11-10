@@ -17,9 +17,6 @@ const SignUpPage = (props) => (
   </div>
 )
 
-
-
-
 const INITIAL_STATE = {
   fullName: '',
   email: '',
