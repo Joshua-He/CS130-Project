@@ -60,7 +60,7 @@ class QueueWithTickets extends Component {
 
   backToMain = () => {
     console.log("enter queue: ",this.state.userData)
-    this.props.history.push({ pathname: ROUTES.USER_PAGE, state: {userData: this.state.userData}});
+    this.props.history.push({ pathname: ROUTES.USER_PAGE, state: {userId: this.state.userData.userId}});
   }
   render() {
     console.log("queue ids inside queueList",this.state.queueData);

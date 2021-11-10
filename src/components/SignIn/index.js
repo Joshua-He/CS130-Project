@@ -39,12 +39,17 @@ class SignInFormBase extends Component {
       .then((authUser) => {
         //login successfully
         this.setState({ ...INITIAL_STATE });
-        return this.props.firebase.dbGetUserInfo(authUser.user.uid);
+        // return this.props.firebase.dbGetUserInfo(authUser.user.uid)
+        // .onSnapshot((snapShot) => {
+        //   let userData = snapShot.data();
+        //   this.props.history.push({ pathname: ROUTES.USER_PAGE, state: { userData } }); 
+        // })
+        this.props.history.push({ pathname: ROUTES.USER_PAGE, state: {userId: authUser.user.uid }});
       })
-      .then((userInfo) => {
-        let userData = userInfo.data();
-        this.props.history.push({ pathname: ROUTES.USER_PAGE, state: { userData } });
-      })
+      // .then((userInfo) => {
+      //   let userData = userInfo.data();
+      //   this.props.history.push({ pathname: ROUTES.USER_PAGE, state: { userData } });
+      // })
       .catch(error => {
         this.setState({ error });
       });

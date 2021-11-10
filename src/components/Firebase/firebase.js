@@ -46,7 +46,7 @@ class Firebase {
   };
 
   dbGetUserInfo = (userId) => {
-    return this.db.collection("users").doc(userId).get();
+    return this.db.collection("users").doc(userId);
   }
 
   dbUpdateUserInfo = (userId, fullName, isInstructor) => {

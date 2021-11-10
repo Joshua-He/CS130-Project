@@ -11,20 +11,30 @@ import CreateTicketPopUp from '../Ticket/createTicket';
 
 const UserPage = (props) => (
   <div>
-    <User userdata={props.location.state.userData}/>
+    <User userId={props.location.state.userId}/>
   </div>
 );
 
-// TODO: use isInstructor to display component
 class UserView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       updateUserInfo: false,
-      userData: this.props.userdata, 
+      userData: {}, 
+      isLoading: true,
       createQueue: false,
       addTicket: false,
     };
+  }
+
+  componentDidMount(){
+    this.props.firebase
+    .dbGetUserInfo(this.props.userId)
+    .onSnapshot((snapShot) => {
+        let data = snapShot.data();
+        this.setState({userData: data, isLoading: false});
+        console.log("current state",this.state)
+    })
   }
   
   updateData = (fullName, IsIntructor) => {
@@ -52,11 +62,14 @@ class UserView extends Component {
     }
     return null;
   }
-
+  
   render() {
+    if (this.state.isLoading){
+      return null
+    }
     return (
       <div>
-        <h1> Hello, {this.state.userData.fullName}</h1>
+        <h1> Hello, {this.state.userData && this.state.userData.fullName}</h1>
         <button onClick={this.updateUserInfo}>Update info</button>
         <UpdateUserInfoPopUp 
         show={this.state.updateUserInfo} updatedata={this.updateData} userdata={this.state.userData}
