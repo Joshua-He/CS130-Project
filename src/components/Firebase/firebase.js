@@ -1,5 +1,7 @@
-import firebase from "firebase";
-import "firebase/firestore";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -39,22 +41,38 @@ class Firebase {
     return this.db.collection("users").doc(userId).set({
       fullName: fullName,
       email: email,
-      isInstructor: isInstructor,
+      isInstructor: isInstructor === "true" ? true : false,
       userId: userId,
       queues: [],
     })
   };
 
   dbGetUserInfo = (userId) => {
-    return this.db.collection("users").doc(userId).get();
+    return this.db.collection("users").doc(userId);
   }
 
   dbUpdateUserInfo = (userId, fullName, isInstructor) => {
     return this.db.collection("users").doc(userId).update({
       fullName: fullName,
-      isInstructor: isInstructor,
+      isInstructor: isInstructor === "true" ? true : false,
     })
   }
+
+  doCreateQueue = (userId, description) => {
+    let collection = this.db.collection("queue");
+    let token = collection.doc().id;
+    collection.doc(token).set({
+      description: description,
+      isDeleted: false,
+      ownerId: userId,
+      tickets: [],
+    });
+    this.db.collection("users").doc(userId).update({
+        queues: firebase.firestore.FieldValue.arrayUnion(token)
+      })
+    ;
+  }
+
   dbGetQueue = (queueId) => {
     return this.db.collection("queue").doc(queueId);
   }

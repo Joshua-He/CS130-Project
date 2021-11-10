@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
+import { CreateQueueButton } from '../QueueManagement';
 import * as ROUTES from '../../constants/routes';
 import Queues from '../Queue/queueList';
 import UpdateUserInfoPopUp from './updateUserInfo';
@@ -10,7 +11,7 @@ import CreateTicketPopUp from '../Ticket/createTicket';
 
 const UserPage = (props) => (
   <div>
-    <User userdata={props.location.state.userData}/>
+    <User userId={props.location.state.userId}/>
   </div>
 );
 
@@ -19,9 +20,21 @@ class UserView extends Component {
     super(props);
     this.state = {
       updateUserInfo: false,
+      userData: {}, 
+      isLoading: true,
+      createQueue: false,
       addTicket: false,
-      userData: this.props.userdata, 
     };
+  }
+
+  componentDidMount(){
+    this.props.firebase
+    .dbGetUserInfo(this.props.userId)
+    .onSnapshot((snapShot) => {
+        let data = snapShot.data();
+        this.setState({userData: data, isLoading: false});
+        console.log("current state",this.state)
+    })
   }
   
   updateData = (fullName, IsIntructor) => {
@@ -31,16 +44,32 @@ class UserView extends Component {
     this.setState({userData: updatedUserData});
   }
   
+  createQueueSwitch = () => {
+    this.setState(
+      {createQueue:!this.state.createQueue}
+    )
+  }
+
   updateUserInfo = () => {
     this.setState({updateUserInfo:!this.state.updateUserInfo})
   }
 
- 
-
+  isInstructor = () => {
+    if (this.state.userData.isInstructor === true) {
+      return (
+        <button onClick={this.createQueueSwitch}>Create queue</button>
+      );
+    }
+    return null;
+  }
+  
   render() {
+    if (this.state.isLoading){
+      return null
+    }
     return (
       <div>
-        <h1> Hello, {this.state.userData.fullName}</h1>
+        <h1> Hello, {this.state.userData && this.state.userData.fullName}</h1>
         <button onClick={this.updateUserInfo}>Update info</button>
         <UpdateUserInfoPopUp 
         show={this.state.updateUserInfo} updatedata={this.updateData} userdata={this.state.userData}
@@ -49,6 +78,8 @@ class UserView extends Component {
         <Queues userdata={this.state.userData}/>
         
         <SignOutButton/>
+        {this.isInstructor()}
+        <CreateQueueButton userData={this.state.userData} show={this.state.createQueue} onHide={this.createQueueSwitch}/>
       </div>
     )
   }
