@@ -33,7 +33,11 @@ class QueueWithTickets extends Component {
     })
     
     console.log("queuepage state", this.state)
-    for (let i = 0; i < this.state.userData.tickets.length; i++){
+    let ticketLength = 0;
+    if(this.state.userData.tickets){
+      ticketLength = this.state.userData.tickets.length;
+    }
+    for (let i = 0; i < ticketLength; i++){
         if (Object.keys(this.state.queueData.tickets).includes(this.state.userData.tickets[i])){
             this.setState({addTicket:false,editTicket:false, createdTicket: true, userTicketId: this.state.userData.tickets[i]})
             return
