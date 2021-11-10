@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
-import { CreateQueueButton } from '../QueueManagement';
+import { CreateQueueButton } from '../Queue/createQueue';
 import * as ROUTES from '../../constants/routes';
 import Queues from '../Queue/queueList';
 import UpdateUserInfoPopUp from './updateUserInfo';

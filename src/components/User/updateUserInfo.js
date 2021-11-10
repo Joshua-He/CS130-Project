@@ -11,7 +11,7 @@ class UpdateUserInfo extends Component{
         this.state = this.props.userdata;
     }
 
-    onChange = event => {
+    notifyChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
     update = () => {
@@ -51,13 +51,13 @@ class UpdateUserInfo extends Component{
                 <input
                     name="fullName"
                     value={fullName}
-                    onChange={this.onChange}
+                    onChange={this.notifyChange}
                     type="text"
                     placeholder="Full name"
                 />
                 <label>Are you an instructor?</label>
                 <select name="isInstructor" defaultValue={isInstructor}
-                    onChange={this.onChange}>
+                    onChange={this.notifyChange}>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                 </select>
