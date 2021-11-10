@@ -33,7 +33,7 @@ class SignUpFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = event => {
+  signup = event => {
     const { fullName, email, passwordOne, isInstructor } = this.state;
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
@@ -52,7 +52,7 @@ class SignUpFormBase extends Component {
     event.preventDefault();
   }
 
-  onChange = event => {
+  notifyChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -104,31 +104,31 @@ class SignUpFormBase extends Component {
       fullName === '';
     return (
 
-      <Form onSubmit={this.onSubmit}>
+      <Form onSubmit={this.signup}>
         <Form.Group className="first" controlId="formBasicName" style={styles}>
           <Form.Label>Full Name</Form.Label>
-          <Form.Control type="name" name="fullName" placeholder="Enter name" value={fullName} onChange={this.onChange} />
+          <Form.Control type="name" name="fullName" placeholder="Enter name" value={fullName} onChange={this.notifyChange} />
         </Form.Group>
         <Form.Group className="email" controlId="formBasicEmail" style={styles}>
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" name="email" placeholder="Enter email" value={email} onChange={this.onChange} />
+          <Form.Control type="email" name="email" placeholder="Enter email" value={email} onChange={this.notifyChange} />
 
         </Form.Group>
 
         <Form.Group className="password" controlId="formBasicPassword" style={styles}>
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" name="passwordOne" placeholder="Password" value={passwordOne} onChange={this.onChange} />
+          <Form.Control type="password" name="passwordOne" placeholder="Password" value={passwordOne} onChange={this.notifyChange} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
 
         </Form.Group>
         <Form.Group className="passwordconfirm" controlId="formBasicPassword" style={styles}>
           <Form.Label>Confirm Password</Form.Label>
-          <Form.Control type="password" name="passwordTwo" placeholder="Password" value={passwordTwo} onChange={this.onChange} />
+          <Form.Control type="password" name="passwordTwo" placeholder="Password" value={passwordTwo} onChange={this.notifyChange} />
         </Form.Group>
 
         <Form.Group className="check" controlId="formBasicCheckbox" style={stylesBox}>
-          <Form.Check type="checkbox" name="isInstructor" label="Are you an instructor?" placeholder="isInstructor" value="isInstructor" onChange={this.onChange} />
+          <Form.Check type="checkbox" name="isInstructor" label="Are you an instructor?" placeholder="isInstructor" value="isInstructor" onChange={this.notifyChange} />
         </Form.Group>
 
         <Button variant="primary" type="submit" style={styles2}>
