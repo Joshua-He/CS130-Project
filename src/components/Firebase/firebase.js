@@ -58,7 +58,7 @@ class Firebase {
     })
   }
 
-  doCreateQueue = (userId, description) => {
+  dbCreateQueue = (userId, description) => {
     let collection = this.db.collection("queue");
     let token = collection.doc().id;
     collection.doc(token).set({
