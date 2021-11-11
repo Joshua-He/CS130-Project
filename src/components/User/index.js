@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
+<<<<<<< HEAD
 import { CreateQueueButton } from '../Queue/createQueue';
 import * as ROUTES from '../../constants/routes';
+=======
+import { CreateQueueButton } from '../QueueManagement';
+>>>>>>> 8643df1 (fix library to make sure the test runs properly)
 import Queues from '../Queue/queueList';
 import UpdateUserInfoPopUp from './updateUserInfo';
-import CreateTicketPopUp from '../Ticket/createTicket';
 
 const UserPage = (props) => (
   <div>
