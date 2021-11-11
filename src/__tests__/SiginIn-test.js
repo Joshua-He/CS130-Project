@@ -7,8 +7,8 @@ describe('SignInForm - Form test ', () => {
     const componentWrapper = shallow (<SignInFormBase/>)
     console.log(componentWrapper.debug())
     const instance = componentWrapper.instance()
-    const onChangeSpy = jest.spyOn(instance, 'onChange')
-    const onSubmitSpy = jest.spyOn(instance,'onSubmit').mockImplementation(()=>"call firebase doSignInWithEmailAndPassword")
+    const notifyUpdateSpy = jest.spyOn(instance, 'notifyUpdate')
+    const signinSpy = jest.spyOn(instance,'signin').mockImplementation(()=>"call firebase doSignInWithEmailAndPassword")
 
     it('when email address and passwords ill formatted/empty, user should not be able to sign in', () => {
         instance.forceUpdate();
@@ -16,16 +16,16 @@ describe('SignInForm - Form test ', () => {
         expect(instance.state.error == "The email address is badly formatted.");
     });
 
-     it('when user fill in email address, onChange function should be triggered', () => {
+     it('when user fill in email address, notifyUpdate function should be triggered', () => {
         instance.forceUpdate();
         componentWrapper.find('FormControl[name="email"]').simulate('change', {target: {value: "123@gmail.com"}})
-        expect(onChangeSpy).toHaveBeenCalled();
+        expect(notifyUpdateSpy).toHaveBeenCalled();
     })
    
-    it('when user fill in password, onChange function should be triggered', () => {
+    it('when user fill in password, notifyUpdate function should be triggered', () => {
         instance.forceUpdate();
         componentWrapper.find('FormControl[name="password"]').simulate('change', {target: {value: "123456"}})
-        expect(onChangeSpy).toHaveBeenCalled();
+        expect(notifyUpdateSpy).toHaveBeenCalled();
     })
 
     it('when user fill in unregistered email and password and click on Sign in Button, error message should be printed', () => {
@@ -37,7 +37,7 @@ describe('SignInForm - Form test ', () => {
         expect(instance.state.error == "There is no user record corresponding to this identifier. The user may have been deleted.");
     }) 
 
-    it('when user fill in valid email and password and click on Sign in Button, method OnSubmit should be triggered', () => {
+    it('when user fill in valid email and password and click on Sign in Button, method signin should be triggered', () => {
         componentWrapper.find('Form')
         instance.forceUpdate();
         componentWrapper.find('FormControl[name="email"]').simulate('change', {target: {value: "jiaxin@gmail.com"}}) 
@@ -46,6 +46,6 @@ describe('SignInForm - Form test ', () => {
         expect(instance.state.email=='jiaxin@gmail.com')
         expect(instance.state.email=='123456')
         componentWrapper.find('Form').simulate('submit')
-        expect(onSubmitSpy).toHaveBeenCalledTimes(1)
+        expect(signinSpy).toHaveBeenCalledTimes(1)
     }) 
 })
