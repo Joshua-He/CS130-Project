@@ -19,11 +19,11 @@ class CreateQueue extends Component{
         this.setState({show:!this.state.show})
       }
 
-    onChange = event => {
+    changeQueueName = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
     
-    update = () => { 
+    createQueue = () => { 
         let userId = this.props.userData.userId;
         const {queueName} = this.state;this.props.firebase.doCreateQueue(userId, queueName);
         
@@ -48,7 +48,7 @@ class CreateQueue extends Component{
                 <input
                     name="queueName"
                     value={queueName}
-                    onChange={this.onChange}
+                    onChange={this.changeQueueName}
                     type="text"
                     placeholder="class name"
                 />
@@ -56,7 +56,7 @@ class CreateQueue extends Component{
                 
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={this.update}>Create</Button>
+                <Button onClick={this.createQueue}>Create</Button>
                 <Button onClick={this.props.onHide}>Cancel</Button>
             </Modal.Footer>
             </Modal>

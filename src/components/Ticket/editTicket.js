@@ -28,11 +28,11 @@ class EditTicket extends Component {
               });
     }
 
-    onChange = event => {
+    notifyChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-    update = () => {
+    edit = () => {
         const { description, ticketId } = this.state;
         this.props.firebase
             .dbEditTicket(description, ticketId)
@@ -69,13 +69,13 @@ class EditTicket extends Component {
                     <input
                         name="description"
                         value={description}
-                        onChange={this.onChange}
+                        onChange={this.notifyChange}
                         type="text"
                         placeholder="Ask your question here..."
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button disabled={isInvalid} onClick={this.update}>Save</Button>
+                    <Button disabled={isInvalid} onClick={this.edit}>Save</Button>
                     <Button onClick={this.props.onHide}>Cancel</Button>
                     {error && <p>{error.message}</p>}
                 </Modal.Footer>

@@ -5,7 +5,7 @@ import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 class SignOut extends Component{
 
-    onClick = () => { 
+    signout = () => { 
         this.props.firebase.doSignOut()
         .then(() => {
             this.props.history.push(ROUTES.WELCOME_PAGE);
@@ -18,7 +18,7 @@ class SignOut extends Component{
     render(){
         
         return (
-            <button type="submit" onClick={this.onClick}>
+            <button type="submit" onClick={this.signout}>
             Sign Out
             </button>
         )

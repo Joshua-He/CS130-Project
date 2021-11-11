@@ -37,7 +37,7 @@ class SignInFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = event => {
+  signin = event => {
     const { email, password } = this.state;
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
@@ -61,7 +61,7 @@ class SignInFormBase extends Component {
     event.preventDefault();
   };
 
-  onChange = event => {
+  notifyUpdate = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -78,10 +78,10 @@ class SignInFormBase extends Component {
     }
 
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Form onSubmit={this.signin}>
         <Form.Group className="mb-3" controlId="formBasicEmail" style={styles}>
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" name="email" placeholder="Enter email" value={email} onChange={this.onChange} />
+          <Form.Control type="email" name="email" placeholder="Enter email" value={email} onChange={this.notifyUpdate} />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
           </Form.Text>
@@ -89,7 +89,7 @@ class SignInFormBase extends Component {
 
         <Form.Group className="mb-3" controlId="formBasicPassword" style={styles}>
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" name="password" placeholder="Password" value={password} onChange={this.onChange} />
+          <Form.Control type="password" name="password" placeholder="Password" value={password} onChange={this.notifyUpdate} />
         </Form.Group>
 
 

@@ -24,7 +24,7 @@ class ForgetPasswordFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
  
-  onSubmit = event => {
+  sendResetPasswordEmail = event => {
     const { email } = this.state;
  
     this.props.firebase
@@ -39,7 +39,7 @@ class ForgetPasswordFormBase extends Component {
     event.preventDefault();
   };
  
-  onChange = event => {
+  notifyChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
  
@@ -49,11 +49,11 @@ class ForgetPasswordFormBase extends Component {
     const isInvalid = email === '';
  
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.sendResetPasswordEmail}>
         <input
           name="email"
           value={this.state.email}
-          onChange={this.onChange}
+          onChange={this.notifyChange}
           type="text"
           placeholder="Email Address"
         />
