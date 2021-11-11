@@ -45,5 +45,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "react-test-renderer": "^17.0.2"
   }
 }
