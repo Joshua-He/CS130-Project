@@ -131,7 +131,7 @@ class SignUpFormBase extends Component {
           <Form.Check type="checkbox" name="isInstructor" label="Are you an instructor?" placeholder="isInstructor" value="isInstructor" onChange={this.notifyChange} />
         </Form.Group>
 
-        <Button variant="primary" type="submit" style={styles2}>
+        <Button variant="primary" type="submit" name="submitButton" style={styles2} disabled={isInvalid}>
           Submit
         </Button>
 
@@ -140,7 +140,7 @@ class SignUpFormBase extends Component {
           <SignInLink />
           </h1>
 
-      
+          {error && <p>{error.message}</p>}
 
       </Form>
     );
@@ -185,7 +185,7 @@ class SignUpFormBase extends Component {
             Sign Up
         </button>
 
-        {error && <p>{error.message}</p>}
+        
       </form>
     );
     */
@@ -204,4 +204,4 @@ const SignUpForm = compose(
 
 export default SignUpPage;
 
-export { SignUpForm, SignUpLink };
+export { SignUpForm, SignUpFormBase, SignUpLink };
