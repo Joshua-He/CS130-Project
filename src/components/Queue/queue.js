@@ -56,4 +56,3 @@ const Queue = compose(
 )(QueueDashboard);
 
 export default Queue;
-export { QueueDashboard };
