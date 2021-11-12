@@ -3,21 +3,15 @@ import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { Modal} from 'react-bootstrap';
-import Button from '@restart/ui/esm/Button';
+import Button from 'react-bootstrap/Button';
 
 class CreateQueue extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            show: true, // if the popup should appear,
             queueName: '',
         };
     }
-
-
-    onHide = () => {
-        this.setState({show:!this.state.show})
-      }
 
     changeQueueName = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -68,4 +62,4 @@ const CreateQueueButton = compose(
     withFirebase
 )(CreateQueue);
 
-export { CreateQueueButton };
+export { CreateQueueButton, CreateQueue };

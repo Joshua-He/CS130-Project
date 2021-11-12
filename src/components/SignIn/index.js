@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import "firebase/firestore";
 import { SignUpLink } from '../SignUp';
 import { ForgetPasswordLink } from '../ForgetPassword';
 import { withFirebase } from '../Firebase';
@@ -94,34 +93,11 @@ class SignInFormBase extends Component {
         </Form.Group>
 
 
-        <Button variant="primary" type="submit" style={styles}>
+        <Button name="submitButton" variant="primary" type="submit" style={styles}>
           Sign In
         </Button>
         {error && <p>{error.message}</p>}
       </Form>
-      /*
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
- 
-        {error && <p>{error.message}</p>}
-      </form>
-      */
     );
   }
 }
@@ -139,4 +115,4 @@ const SignInForm = compose(
 
 export default SignInPage;
 
-export { SignInForm, SignInLink };
+export { SignInForm, SignInFormBase, SignInLink, Form};

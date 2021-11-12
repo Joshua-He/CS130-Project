@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
@@ -7,7 +7,6 @@ import { CreateQueueButton } from '../Queue/createQueue';
 import * as ROUTES from '../../constants/routes';
 import Queues from '../Queue/queueList';
 import UpdateUserInfoPopUp from './updateUserInfo';
-import CreateTicketPopUp from '../Ticket/createTicket';
 
 const UserPage = (props) => (
   <div>

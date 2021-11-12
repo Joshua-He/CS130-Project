@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Queue from './queue';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
