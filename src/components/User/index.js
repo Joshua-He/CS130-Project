@@ -78,7 +78,8 @@ class UserView extends Component {
         
         <SignOutButton/>
         {this.isInstructor()}
-        <CreateQueueButton userData={this.state.userData} show={this.state.createQueue} onHide={this.createQueueSwitch}/>
+        <CreateQueueButton show={this.state.createQueue} userData={this.state.userData} 
+        onHide={this.createQueueSwitch}/>
       </div>
     )
   }

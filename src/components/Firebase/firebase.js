@@ -70,7 +70,7 @@ class Firebase {
       ownerId: userId,
       tickets: [],
     });
-    this.db.collection("users").doc(userId).update({
+    return this.db.collection("users").doc(userId).update({
         queues: firebase.firestore.FieldValue.arrayUnion(token)
       })
     ;

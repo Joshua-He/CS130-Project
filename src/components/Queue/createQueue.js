@@ -19,8 +19,16 @@ class CreateQueue extends Component{
     
     createQueue = () => { 
         let userId = this.props.userData.userId;
-        const {queueName} = this.state;this.props.firebase.doCreateQueue(userId, queueName);
-        
+        const {queueName} = this.state;
+        this.props.firebase
+        .dbCreateQueue(userId, queueName)
+        .then(() => {
+            console.log("queue created succesfully!")
+            this.props.onHide();
+        })
+        .catch(error => {
+            this.setState({ error });
+        });
     }
 
     render(){
@@ -46,8 +54,6 @@ class CreateQueue extends Component{
                     type="text"
                     placeholder="class name"
                 />
-                
-                
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={this.createQueue}>Create</Button>
