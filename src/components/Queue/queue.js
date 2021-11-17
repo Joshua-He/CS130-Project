@@ -22,6 +22,7 @@ class QueueDashboard extends Component {
         console.log('In Queue onSnapshot Called!');
         let data = snapShot.data();
         this.setState({queueData: data});
+        console.log("queue data",this.state.queueData)
     })
   }
 
@@ -36,15 +37,27 @@ class QueueDashboard extends Component {
       queueData,
       error,
     } = this.state;
+    let queue;
+    if (queueData) {
+      queue =  <div>
+      Name: {queueData.name} <br/>
+      Description: {queueData.description}<br/>
+      Start Time: {queueData.startTime}<br/>
+      End Time: {queueData.endTime}<br/>
+      <Button variant="primary" onClick={this.enterQueue}>
+         enter this queue
+      </Button>
+      </div>;
+    } else{
+      queue = <div></div>;
+    }
     return (
-        <div>
-            Queue Id: {queueId} <br/>
-            Queue Description: {queueData && queueData.description}<br/>
-            <Button variant="primary" onClick={this.enterQueue}>
-               enter this queue
-            </Button>
-            {error && <p>{error.message}</p>}
-        </div>
+      <div>
+        {queue}
+        {error && <p>{error.message}</p>}
+      </div>
+     
+       
     );
   }
 
