@@ -122,9 +122,9 @@ class CreateQueue extends Component{
         )
     }
 }
-const CreateQueueButton = compose(
+const CreateQueuePopUp = compose(
     withRouter,
     withFirebase
 )(CreateQueue);
 
-export { CreateQueueButton, CreateQueue };
+export { CreateQueuePopUp, CreateQueue };

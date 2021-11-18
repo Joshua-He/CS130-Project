@@ -11,41 +11,39 @@ import SignInPage from '../SignIn';
 import ForgetPasswordPage from '../ForgetPassword';
 import QueuePage from '../Queue/queuePage';
 import * as ROUTES from '../../constants/routes';
+import {
+  Container,
+  Row,
+  Col
+} from 'react-bootstrap';
 
-const Navigation = () => {
-  const location = useLocation();
-  const pathname = location.pathname;
-  console.log("current location", location);
-  if (pathname === ROUTES.WELCOME_PAGE) {
-    return(
-    <div>
-      <h1>Welcome to kyoo</h1>
-      <ul>
-        <li><Link to={ROUTES.SIGN_UP}>Sign up</Link></li>
-        <li><Link to={ROUTES.SIGN_IN}>Sign in</Link></li>
-      </ul>
-    </div>)
-  }
-  else{
-    return null
-  }
-}
+// const Navigation = () => {
+//   const location = useLocation();
+//   const pathname = location.pathname;
+//   console.log("current location", location);
+//   if (pathname === '/') {
+//     this.props.history.push({path:ROUTES.SIGN_IN});
+//   }else {
+//     return null
+//   }
+// }
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <Navigation/>
+        {/* <Navigation /> */}
         <div>
+          <Route exact path={'/'} component={SignInPage}/>
           <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
           <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-          <Route path={ROUTES.USER_PAGE} component={UserPage}/>
+          <Route path={ROUTES.USER_PAGE} component={UserPage} />
           <Route path={ROUTES.PASSWORD_FORGET} component={ForgetPasswordPage} />
-          <Route path={ROUTES.QUEUE} component={QueuePage}/>
+          <Route path={ROUTES.QUEUE} component={QueuePage} />
         </div>
-      </Router> 
+      </Router>
     )
   }
 }
- 
+
 export default App;

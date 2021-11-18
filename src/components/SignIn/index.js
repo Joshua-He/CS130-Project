@@ -8,19 +8,27 @@ import * as ROUTES from '../../constants/routes';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import {Container, Row, Col} from 'react-bootstrap';
 
 const SignInPage = (props) => (
-  <div>
-    <h1 style={{fontFamily: 'arial', textAlign: 'center', color: "#00005c", margin: "3.4%", }}>Sign In</h1>
-    <SignInForm />
-    <h1 style={{fontSize: "small", marginLeft: "0%",textAlign: 'center'}}>
-      <SignUpLink
-      />
-      <ForgetPasswordLink />
-    </h1>
-
-    
+  <div id="signInWrapper">
+    <Container>
+    <Row>
+      <Col className="align-self-center">
+        <Row><h1 class="text-center"> Welcome to Kyoo!</h1></Row>
+      </Col>
+      <Col>
+        <Row>
+        <h2 class="text-center">Sign In</h2>
+        </Row>
+        <Row><SignInForm /></Row>
+        <Row>
+        <SignUpLink/>
+        <ForgetPasswordLink />
+        </Row>
+      </Col>
+    </Row>
+    </Container>
   </div>
 );
 
@@ -49,7 +57,7 @@ class SignInFormBase extends Component {
         //   let userData = snapShot.data();
         //   this.props.history.push({ pathname: ROUTES.USER_PAGE, state: { userData } }); 
         // })
-        this.props.history.push({ pathname: ROUTES.USER_PAGE, state: {userId: authUser.user.uid }});
+        this.props.history.push({ pathname: ROUTES.USER_PAGE, state: { userId: authUser.user.uid } });
       })
       // .then((userInfo) => {
       //   let userData = userInfo.data();
@@ -70,32 +78,24 @@ class SignInFormBase extends Component {
 
     const isInvalid = password === '' || email === '';
 
-    let styles = {
-      marginRight: '300px',
-      marginLeft: '25%',
-      marginBottom: '2%',
-      width: '50%'
-    }
-
     return (
       <Form onSubmit={this.signin}>
-        <Form.Group className="mb-3" controlId="formBasicEmail" style={styles}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" name="email" placeholder="Enter email" value={email} onChange={this.notifyUpdate} />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword" style={styles}>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" name="password" placeholder="Password" value={password} onChange={this.notifyUpdate} />
         </Form.Group>
-
-
-        <Button name="submitButton" variant="primary" type="submit" style={styles}>
+        <div className="d-grid gap-2">
+        <Button name="submitButton" variant="primary" type="submit">
           Sign In
         </Button>
+        </div>
         {error && <p>{error.message}</p>}
       </Form>
     );
@@ -103,7 +103,7 @@ class SignInFormBase extends Component {
 }
 
 const SignInLink = () => (
-  <p >
+  <p>
     Already have an account? <Link to={ROUTES.SIGN_IN}>Sign in</Link>
   </p>
 );
@@ -115,4 +115,4 @@ const SignInForm = compose(
 
 export default SignInPage;
 
-export { SignInForm, SignInFormBase, SignInLink, Form};
+export { SignInForm, SignInFormBase, SignInLink, Form };
