@@ -3,14 +3,13 @@ import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import { compose } from 'recompose';
-import Button from 'react-bootstrap/Button';
 import Ticket from '../Ticket/Ticket';
 import CreateTicketPopUp from '../Ticket/createTicket';
 import EditTicketPopUp from '../Ticket/editTicket';
+import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
 
 const QueuePage = (props) => (
     <div>
-      <h1>Queue Page</h1>
       <QueueTicketLists/>
     </div>
   );
@@ -68,27 +67,34 @@ class QueueWithTickets extends Component {
     console.log("orderedTicketIds",orderedTicketIds);
     return (
         <div>
-            <div>{orderedTicketIds && orderedTicketIds.map((ticketId) => <Ticket ticketid={ticketId}/>)}</div>
-            
-            <div>
-                {
+          <Navbar className="sticky-top" bg="primary" variant="dark">
+            <Container>
+            <Navbar.Brand>Kyoo</Navbar.Brand>
+            <Nav className="me-auto">
+              {
                 this.state.createdTicket
                 ?  <Button onClick={this.editTicket}>Edit ticket</Button> 
-                :  <Button onClick={this.addTicket}>Add ticket</Button> }
-            </div>
-            <div>
-            {
-                this.state.createdTicket
-                ?  <EditTicketPopUp userticketid={this.state.userTicketId} queueid={this.state.queueId} userdata={this.state.userData}/> 
-                :  <CreateTicketPopUp onHide={this.addTicket} show={this.state.addTicket} queueid={this.state.queueId} userdata={this.state.userData}/> }
-            </div>
-            <Button variant="primary" onClick={this.resolveTicket}>
+                :  <Button onClick={this.addTicket}>Add ticket</Button> 
+              }
+              <Button variant="primary" onClick={this.resolveTicket}>
                 Resolve ticket
-            </Button><br/>
-        
-            <Button variant="primary" onClick={this.backToMain}>
+              </Button>
+              <Button variant="primary" onClick={this.backToMain}>
                 Go back to main page
-            </Button>
+              </Button>
+            </Nav>
+            </Container>
+          </Navbar>
+
+          <h1 className="text-center"> {this.state.queueData && this.state.queueData.name}</h1>
+          <div>
+          {orderedTicketIds && 
+            <Row md={1} className="justify-content-center g-3">
+              {orderedTicketIds.map((ticketId) => <Ticket ticketid={ticketId}/>)}
+            </Row>}
+          </div>
+          {/* <EditTicketPopUp userticketid={this.state.userTicketId} queueid={this.state.queueId} userdata={this.state.userData}/>  */}
+          <CreateTicketPopUp onHide={this.addTicket} show={this.state.addTicket} queueid={this.state.queueId} userdata={this.state.userData}/> 
         </div>
     );
   }

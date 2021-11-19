@@ -22,7 +22,7 @@ class CreateTicket extends Component{
         this.setState({[event.target.name]: event.target.value });
     };
 
-    create = () => {
+    createTicket = () => {
         const {ownerName, userId, description} = this.state;
         this.props.firebase
         .dbCreateTicket(description, ownerName, userId)
@@ -36,6 +36,7 @@ class CreateTicket extends Component{
         .then((ticket) => {return ticket.data()})
         .then((ticketData) => {
             console.log(ticketData.createdAt)
+            this.props.onHide();
             return this.props.firebase.dbAddTicketToQueue(this.state.ticketId,this.state.queueId, ticketData.createdAt)
         })
         .catch(error => {
@@ -76,7 +77,7 @@ class CreateTicket extends Component{
                 />
             </Modal.Body>
             <Modal.Footer>
-                <Button disabled={isInvalid} onClick={this.create}>Save</Button>
+                <Button disabled={isInvalid} onClick={this.createTicket}>Save</Button>
                 <Button onClick={this.props.onHide}>Cancel</Button>
                 {error && <p>{error.message}</p>}
             </Modal.Footer>

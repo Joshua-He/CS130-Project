@@ -41,7 +41,7 @@ class QueueDashboard extends Component {
     if (queueData) {
       queue =  
       <Col>
-        <Card className="p-3" style={{ width: '18rem' }}>
+        <Card className="p-3" style={{ width: '22rem' }}>
           <Card.Body>
             <Card.Title>{queueData.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>

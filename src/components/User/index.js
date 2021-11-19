@@ -4,11 +4,10 @@ import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
 import { CreateQueuePopUp } from '../Queue/createQueue';
-import Queues from '../Queue/queueList';
+import Queue from '../Queue/queue';
 import UpdateUserInfoPopUp from './updateUserInfo';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
-import * as ROUTES from '../../constants/routes';
 
 const UserPage = (props) => (
   <div>
@@ -59,7 +58,7 @@ class UserView extends Component {
     }
     return (
       <div>
-        <Navbar fix="top" bg="primary" variant="dark">
+        <Navbar bg="primary" variant="dark">
           <Container>
           <Navbar.Brand>Kyoo</Navbar.Brand>
           <Nav className="me-auto">
@@ -71,7 +70,14 @@ class UserView extends Component {
         </Navbar>
         <Container>
           <Row><h1 className="text-center"> Hello, {this.state.userData && this.state.userData.fullName}</h1></Row>
-          <Row><Queues userdata={this.state.userData}/> </Row>
+          <Row>
+            <div>
+            {this.state.userData.queues && 
+            <Row md={3} className="g-3">
+              {this.state.userData.queues.map((queueId) => <Queue queueid={queueId} userdata={this.state.userData}/>)}
+              </Row>}
+            </div> 
+        </Row>
         </Container>
     
         <UpdateUserInfoPopUp 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
+import {Button, Card, Col}from 'react-bootstrap';
 
 class TicketView extends Component {
     constructor(props) {
@@ -22,18 +23,30 @@ class TicketView extends Component {
     }
 
     render() {
+        const {
+            ticketData
+        } = this.state
+        let ticket;
+        if (ticketData && !ticketData.isResolved) {
+            ticket = 
+            <Col>
+                <Card className="p-3 mx-auto" style={{ width: '30rem' }}>
+                <Card.Body>
+                    <Card.Title>{ticketData.description}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">{"created by: "+ ticketData.ownerName}</Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted">{"created at: "+ ticketData.createdAt.toDate().toUTCString()}</Card.Subtitle>
+                    <Card.Text>
+                    {ticketData.description}
+                    </Card.Text>
+                </Card.Body>
+                </Card>
+            </Col>
+        }
+        else {
+            ticket = null
+        }
         return (
-            <div>
-                <br/>
-               {!!this.state.ticketData && !this.state.ticketData.isResolved &&
-                <div>
-                Ticket created by: {this.state.ticketData.ownerName} 
-                <br/>
-                Ticket created at: {this.state.ticketData.createdAt.toDate().toUTCString()}
-                <br/>
-                Description: {this.state.ticketData.description}</div>
-               }
-            </div>
+            ticket
         );
     }
 
