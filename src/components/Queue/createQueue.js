@@ -4,6 +4,7 @@ import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class CreateQueue extends Component{
     constructor(props) {

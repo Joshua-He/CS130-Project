@@ -7,7 +7,7 @@ import { CreateQueuePopUp } from '../Queue/createQueue';
 import Queues from '../Queue/queueList';
 import UpdateUserInfoPopUp from './updateUserInfo';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container, Nav, Navbar, Button} from 'react-bootstrap'
+import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
 import * as ROUTES from '../../constants/routes';
 
 const UserPage = (props) => (
@@ -63,16 +63,17 @@ class UserView extends Component {
           <Container>
           <Navbar.Brand>Kyoo</Navbar.Brand>
           <Nav className="me-auto">
-            {this.state.userData.isInstructor === true?  <Button>Create queue</Button> : null}
+            {this.state.userData && this.state.userData.isInstructor === true?  <Button onClick={this.createQueue}>Create queue</Button> : null}
             <Button onClick={this.updateUserInfo}>Update info</Button>
             <SignOutButton/>
           </Nav>
           </Container>
         </Navbar>
-        <h1> Hello, {this.state.userData && this.state.userData.fullName}</h1>
-        
-        <Queues userdata={this.state.userData}/>
-
+        <Container>
+          <Row><h1 className="text-center"> Hello, {this.state.userData && this.state.userData.fullName}</h1></Row>
+          <Row><Queues userdata={this.state.userData}/> </Row>
+        </Container>
+    
         <UpdateUserInfoPopUp 
         show={this.state.updateUserInfo} updatedata={this.updateData} userdata={this.state.userData}
         onHide={this.updateUserInfo}

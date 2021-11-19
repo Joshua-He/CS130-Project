@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
-import Button from 'react-bootstrap/Button';
+import {Button, Card, Col}from 'react-bootstrap';
 import { compose } from 'recompose';
 import * as ROUTES from '../../constants/routes';
 
@@ -39,25 +39,26 @@ class QueueDashboard extends Component {
     } = this.state;
     let queue;
     if (queueData) {
-      queue =  <div>
-      Name: {queueData.name} <br/>
-      Description: {queueData.description}<br/>
-      Start Time: {queueData.startTime}<br/>
-      End Time: {queueData.endTime}<br/>
-      <Button variant="primary" onClick={this.enterQueue}>
-         enter this queue
-      </Button>
-      </div>;
+      queue =  
+      <Col>
+        <Card className="p-3" style={{ width: '18rem' }}>
+          <Card.Body>
+            <Card.Title>{queueData.name}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
+            <Card.Text>
+            {queueData.description}
+            </Card.Text>
+            <Button variant="primary" onClick={this.enterQueue}>
+              enter this queue
+            </Button> 
+          </Card.Body>
+        </Card>
+      </Col>
     } else{
-      queue = <div></div>;
+      queue = null;
     }
     return (
-      <div>
-        {queue}
-        {error && <p>{error.message}</p>}
-      </div>
-     
-       
+      queue
     );
   }
 
