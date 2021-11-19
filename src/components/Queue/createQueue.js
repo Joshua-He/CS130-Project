@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 import { Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { StandaloneSearchBox } from '@react-google-maps/api';
 
 class CreateQueue extends Component{
     constructor(props) {
