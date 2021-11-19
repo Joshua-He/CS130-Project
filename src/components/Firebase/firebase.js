@@ -5,19 +5,11 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import firestoreConfig from '../../configuration';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const config = {
-  apiKey: "AIzaSyAW2TRanMIPEI7fd9ASkt6WaCcDheRnJtI",
-  authDomain: "kyoo-55fd2.firebaseapp.com",
-  projectId: "kyoo-55fd2",
-  storageBucket: "kyoo-55fd2.appspot.com",
-  messagingSenderId: "955272904423",
-  appId: "1:955272904423:web:99fec79e64b45a5ea52c42",
-  measurementId: "G-MBSW0XPYXB"
-};
-
+const config = firestoreConfig;
 class Firebase {
   constructor() {
     this.app = firebase.initializeApp(config);
@@ -61,16 +53,22 @@ class Firebase {
     })
   }
 
-  dbCreateQueue = (userId, description) => {
+  dbCreateQueue = (userId, name, description, announcement, location, vLocation, startTime, endTime) => {
     let collection = this.db.collection("queue");
     let token = collection.doc().id;
     collection.doc(token).set({
+      name: name,
+      announcement: announcement,
+      location: location,
+      vLocation: vLocation,
+      startTime: startTime,
+      endTime: endTime, 
       description: description,
       isDeleted: false,
       ownerId: userId,
       tickets: [],
     });
-    this.db.collection("users").doc(userId).update({
+    return this.db.collection("users").doc(userId).update({
         queues: firebase.firestore.FieldValue.arrayUnion(token)
       })
     ;

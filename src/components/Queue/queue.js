@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
-import Button from 'react-bootstrap/Button';
+import {Button, Card, Col}from 'react-bootstrap';
 import { compose } from 'recompose';
 import * as ROUTES from '../../constants/routes';
 
@@ -22,6 +22,7 @@ class QueueDashboard extends Component {
         console.log('In Queue onSnapshot Called!');
         let data = snapShot.data();
         this.setState({queueData: data});
+        console.log("queue data",this.state.queueData)
     })
   }
 
@@ -36,15 +37,28 @@ class QueueDashboard extends Component {
       queueData,
       error,
     } = this.state;
-    return (
-        <div>
-            Queue Id: {queueId} <br/>
-            Queue Description: {queueData && queueData.description}<br/>
+    let queue;
+    if (queueData) {
+      queue =  
+      <Col>
+        <Card className="p-3" style={{ width: '22rem' }}>
+          <Card.Body>
+            <Card.Title>{queueData.name}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
+            <Card.Text>
+            {queueData.description}
+            </Card.Text>
             <Button variant="primary" onClick={this.enterQueue}>
-               enter this queue
-            </Button>
-            {error && <p>{error.message}</p>}
-        </div>
+              enter this queue
+            </Button> 
+          </Card.Body>
+        </Card>
+      </Col>
+    } else{
+      queue = null;
+    }
+    return (
+      queue
     );
   }
 

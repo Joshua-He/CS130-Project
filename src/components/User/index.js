@@ -3,14 +3,15 @@ import { withRouter } from "react-router-dom";
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
-import { CreateQueueButton } from '../Queue/createQueue';
-import * as ROUTES from '../../constants/routes';
-import Queues from '../Queue/queueList';
+import { CreateQueuePopUp } from '../Queue/createQueue';
+import Queue from '../Queue/queue';
 import UpdateUserInfoPopUp from './updateUserInfo';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
 
 const UserPage = (props) => (
   <div>
-    <User userId={props.location.state.userId}/>
+  <User userId={props.location.state.userId}/>
   </div>
 );
 
@@ -43,23 +44,12 @@ class UserView extends Component {
     this.setState({userData: updatedUserData});
   }
   
-  createQueueSwitch = () => {
-    this.setState(
-      {createQueue:!this.state.createQueue}
-    )
+  createQueue = () => {
+    this.setState({createQueue:!this.state.createQueue})
   }
 
   updateUserInfo = () => {
     this.setState({updateUserInfo:!this.state.updateUserInfo})
-  }
-
-  isInstructor = () => {
-    if (this.state.userData.isInstructor === true) {
-      return (
-        <button onClick={this.createQueueSwitch}>Create queue</button>
-      );
-    }
-    return null;
   }
   
   render() {
@@ -68,17 +58,35 @@ class UserView extends Component {
     }
     return (
       <div>
-        <h1> Hello, {this.state.userData && this.state.userData.fullName}</h1>
-        <button onClick={this.updateUserInfo}>Update info</button>
+        <Navbar bg="primary" variant="dark">
+          <Container>
+          <Navbar.Brand>Kyoo</Navbar.Brand>
+          <Nav className="me-auto">
+            {this.state.userData && this.state.userData.isInstructor === true?  <Button onClick={this.createQueue}>Create queue</Button> : null}
+            <Button onClick={this.updateUserInfo}>Update info</Button>
+            <SignOutButton/>
+          </Nav>
+          </Container>
+        </Navbar>
+        <Container>
+          <Row><h1 className="text-center"> Hello, {this.state.userData && this.state.userData.fullName}</h1></Row>
+          <Row>
+            <div>
+            {this.state.userData.queues && 
+            <Row md={3} className="g-3">
+              {this.state.userData.queues.map((queueId) => <Queue queueid={queueId} userdata={this.state.userData}/>)}
+              </Row>}
+            </div> 
+        </Row>
+        </Container>
+    
         <UpdateUserInfoPopUp 
         show={this.state.updateUserInfo} updatedata={this.updateData} userdata={this.state.userData}
         onHide={this.updateUserInfo}
         />
-        <Queues userdata={this.state.userData}/>
-        
-        <SignOutButton/>
-        {this.isInstructor()}
-        <CreateQueueButton userData={this.state.userData} show={this.state.createQueue} onHide={this.createQueueSwitch}/>
+        <CreateQueuePopUp 
+        show={this.state.createQueue} userData={this.state.userData} 
+        onHide={this.createQueue}/>
       </div>
     )
   }

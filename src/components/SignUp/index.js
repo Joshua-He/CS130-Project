@@ -7,13 +7,23 @@ import { SignInLink } from '../SignIn';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container, Row, Col} from 'react-bootstrap';
 
 const SignUpPage = (props) => (
-  <div>
-    <h1 style={{ textAlign: 'center', color: "#00005c", margin: "5%", }}>Sign Up</h1>
-
-    <SignUpForm />
-
+  <div id="signUpWrapper">
+  <Container>
+  <Row>
+    <Col className="align-self-center">
+      <Row><h1 class="text-center"> Welcome to Kyoo!</h1></Row>
+    </Col>
+    <Col>
+      <Row>
+      <h2 class="text-center">Sign Up</h2>
+      </Row>
+      <Row><SignUpForm /></Row>
+    </Col>
+  </Row>
+  </Container>
   </div>
 )
 
@@ -57,37 +67,6 @@ class SignUpFormBase extends Component {
   };
 
   render() {
-    let styles = {
-      marginRight: '300px',
-      marginLeft: '25%',
-      marginBottom: '1%',
-      width: '50%'
-    }
-    let stylesBox = {
-      marginRight: '300px',
-      marginLeft: '25%',
-      marginBottom: '0%',
-      width: '50%'
-    }
-
-    let styles2 = {
-      marginRight: '300px',
-      marginLeft: '25%',
-      marginBottom: '1%',
-      width: '50%',
-      paddingTop: '13px',
-      paddingBottom: '13px',
-      marginTop: '20px',
-
-    }
-    let styles3 = {
-      marginRight: '300px',
-      marginLeft: '25%',
-      marginBottom: '2%',
-      width: '50%',
-      color: 'blue',
-      backgroundColor: "white"
-    }
     const {
       fullName,
       email,
@@ -105,90 +84,42 @@ class SignUpFormBase extends Component {
     return (
 
       <Form onSubmit={this.signup}>
-        <Form.Group className="first" controlId="formBasicName" style={styles}>
+        <Form.Group className="first mb-3" controlId="formBasicName">
           <Form.Label>Full Name</Form.Label>
           <Form.Control type="name" name="fullName" placeholder="Enter name" value={fullName} onChange={this.notifyChange} />
         </Form.Group>
-        <Form.Group className="email" controlId="formBasicEmail" style={styles}>
+        <Form.Group className="email mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" name="email" placeholder="Enter email" value={email} onChange={this.notifyChange} />
-
         </Form.Group>
 
-        <Form.Group className="password" controlId="formBasicPassword" style={styles}>
+        <Form.Group className="password mb-3" controlId="formBasicPassword" >
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" name="passwordOne" placeholder="Password" value={passwordOne} onChange={this.notifyChange} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
 
         </Form.Group>
-        <Form.Group className="passwordconfirm" controlId="formBasicPassword" style={styles}>
+        <Form.Group className="passwordconfirm" controlId="formBasicPassword" >
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control type="password" name="passwordTwo" placeholder="Password" value={passwordTwo} onChange={this.notifyChange} />
         </Form.Group>
-
-        <Form.Group className="check" controlId="formBasicCheckbox" style={stylesBox}>
+        <Form.Group className="check" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" name="isInstructor" label="Are you an instructor?" placeholder="isInstructor" value="isInstructor" onChange={this.notifyChange} />
         </Form.Group>
 
-        <Button variant="primary" type="submit" name="submitButton" style={styles2} disabled={isInvalid}>
+        <div className="d-grid gap-2">
+        <Button variant="primary" type="submit" name="submitButton" disabled={isInvalid}>
           Submit
         </Button>
+        </div>
 
-    
-          <h1 style={{fontSize: "small", marginLeft: "0%",textAlign: 'center'}}>
-          <SignInLink />
-          </h1>
+        <SignInLink />
 
           {error && <p>{error.message}</p>}
 
       </Form>
     );
-    /*
-    return (
-        <form onSubmit={this.onSubmit}>
-        <input
-          name="fullName"
-          value={fullName}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <label>Are you an instructor?</label>
-        <select name="isInstructor" defaultValue={isInstructor}
-          onChange={this.onChange}>
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
-        <button disabled={isInvalid} type="submit">
-            Sign Up
-        </button>
-
-        
-      </form>
-    );
-    */
   }
 }
 

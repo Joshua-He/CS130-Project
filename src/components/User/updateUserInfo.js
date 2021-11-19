@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { Modal} from 'react-bootstrap';
-import Button from '@restart/ui/esm/Button';
+import {Container, Nav, Navbar, Button} from 'react-bootstrap'
 
 class UpdateUserInfo extends Component{
     constructor(props) {
