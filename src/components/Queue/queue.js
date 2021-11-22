@@ -4,6 +4,7 @@ import { withFirebase } from '../Firebase';
 import {Button, Card, Col}from 'react-bootstrap';
 import { compose } from 'recompose';
 import * as ROUTES from '../../constants/routes';
+import EdiText from 'react-editext';
 
 class QueueDashboard extends Component {
   constructor(props) {
@@ -27,8 +28,12 @@ class QueueDashboard extends Component {
   }
 
   enterQueue = () => {
-      console.log("enter queue: ",this.state.userdata)
-      this.props.history.push({pathname: ROUTES.QUEUE + this.state.queueId, state: this.state});
+    console.log("enter queue: ",this.state.userdata)
+    this.props.history.push({pathname: ROUTES.QUEUE + this.state.queueId, state: this.state});
+  }
+
+  onEdit = val => {
+    return this.props.firebase.dbEditQueueDescription(this.state.queueId, val);
   }
 
   deactivateQueue = () => {
@@ -51,9 +56,16 @@ class QueueDashboard extends Component {
           <Card.Body>
             <Card.Title>{queueData.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
-            <Card.Text>
-            {queueData.description}
-            </Card.Text>
+            <EdiText
+              type="text"
+              viewProps={{
+                className: 'react-answer-1',
+                style: { borderRadius: 3 }
+              }}
+              value={queueData.description}
+              onSave={this.onEdit}
+              editButtonContent="Edit"
+            />
             <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
               enter this queue
             </Button> 
