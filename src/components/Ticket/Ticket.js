@@ -22,6 +22,11 @@ class TicketView extends Component {
             })
     }
 
+    resolveTicket = () => {
+        this.props.firebase.dbDeleteTicket(this.state.ticketId).then
+        (this.setState({queueData: null}));
+    }
+
     render() {
         const {
             ticketData
@@ -38,6 +43,9 @@ class TicketView extends Component {
                     <Card.Text>
                     {ticketData.description}
                     </Card.Text>
+                    <Button variant="danger" onClick={this.resolveTicket}>
+                    resolve this ticket
+                    </Button> 
                 </Card.Body>
                 </Card>
             </Col>

@@ -80,6 +80,12 @@ class Firebase {
     })
   }
 
+  dbDeleteTicket = (ticketId) => {
+    return this.db.collection("ticket").doc(ticketId).update({
+      isResolved: true,
+    })
+  }
+
   dbGetQueue = (queueId) => {
     return this.db.collection("queue").doc(queueId);
   }
