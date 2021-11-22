@@ -6,6 +6,7 @@ import { compose } from 'recompose';
 import Ticket from '../Ticket/Ticket';
 import CreateTicketPopUp from '../Ticket/createTicket';
 import EditTicketPopUp from '../Ticket/editTicket';
+import ChromeDinoGame from 'react-chrome-dino';
 import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
 
 const QueuePage = (props) => (
@@ -82,7 +83,7 @@ class QueueWithTickets extends Component {
             </Nav>
             </Container>
           </Navbar>
-
+          <ChromeDinoGame />
           <h1 className="text-center"> {this.state.queueData && this.state.queueData.name}</h1>
           <div>
           {orderedTicketIds && 
