@@ -58,7 +58,7 @@ class QueueDashboard extends Component {
               enter this queue
             </Button> 
             <Button variant="danger" onClick={this.deactivateQueue}>
-              deactivate this queue, {this.state.queueId}
+              deactivate this queue
             </Button> 
           </Card.Body>
         </Card>
