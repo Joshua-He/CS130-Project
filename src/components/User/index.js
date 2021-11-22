@@ -24,6 +24,7 @@ class UserView extends Component {
       isLoading: true,
       createQueue: false,
       addTicket: false,
+      joinQueue: false,
     };
   }
 
@@ -48,6 +49,10 @@ class UserView extends Component {
     this.setState({createQueue:!this.state.createQueue})
   }
 
+  joinQueue = () => {
+    this.setState({joinQueue:!this.state.joinQueue})
+  }
+
   updateUserInfo = () => {
     this.setState({updateUserInfo:!this.state.updateUserInfo})
   }
@@ -62,7 +67,7 @@ class UserView extends Component {
           <Container>
           <Navbar.Brand>Kyoo</Navbar.Brand>
           <Nav className="me-auto">
-            {this.state.userData && this.state.userData.isInstructor === true?  <Button onClick={this.createQueue}>Create queue</Button> : null}
+            {this.state.userData && this.state.userData.isInstructor === true?  <Button onClick={this.createQueue}>Create queue</Button> : <Button onClick={this.joinQueue}>Join queue</Button>}
             <Button onClick={this.updateUserInfo}>Update info</Button>
             <SignOutButton/>
           </Nav>
@@ -87,6 +92,9 @@ class UserView extends Component {
         <CreateQueuePopUp 
         show={this.state.createQueue} userData={this.state.userData} 
         onHide={this.createQueue}/>
+        <joinQueuePopUp 
+        show={this.state.joinQueue} userData={this.state.userData} 
+        onHide={this.joinQueue}/>
       </div>
     )
   }
