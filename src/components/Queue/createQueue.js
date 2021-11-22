@@ -20,6 +20,29 @@ class CreateQueue extends Component{
         };
     }
 
+    componentDidMount() {
+        if (this.props.queueId) {
+            console.log("inside mount");
+            console.log(this.props.queueId);
+            this.props.firebase
+        .dbGetQueue(this.props.queueId)
+        .onSnapshot((snapShot) => {
+            let queueData = snapShot.data();
+            this.setState(
+                {queueName: queueData.name,
+                description: queueData.description,
+                announcement: queueData.announcement,
+                queueLocation: queueData.location,
+                queueVLocation: queueData.vLocation,
+                queueStartTime: queueData.startTime,
+                queueEndTime: queueData.endTime,
+            }
+            );
+            console.log("queue name is ",queueData)
+        })
+        }
+    }
+
     changeQueueInformation = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
@@ -48,6 +71,7 @@ class CreateQueue extends Component{
     }
 
     render(){
+        let title;
         const {
             queueName,
             description,
@@ -57,7 +81,14 @@ class CreateQueue extends Component{
             queueStartTime,
             queueEndTime,
         } = this.state;
-        
+        if (!this.props.queueId) {
+            title = "Create New Office Hour Queue";
+        }
+        else {
+            title = "Edit Office Hour Queue";
+        }
+
+
         return (
              <Modal
             show={this.props.show}
@@ -65,7 +96,7 @@ class CreateQueue extends Component{
             >
             <Modal.Header>
                 <Modal.Title>
-                Create New Office Hour Queue
+                {title}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -75,6 +106,7 @@ class CreateQueue extends Component{
                     value={queueName}
                     onChange={this.changeQueueInformation}
                     type="text"
+                    placeholder={this.state.queueName}
                 /><br/>
                 <label> Description </label><br/>
                 <input
@@ -116,7 +148,7 @@ class CreateQueue extends Component{
                
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={this.createQueue}>Create</Button>
+                <Button onClick={this.createQueue}>Save</Button>
                 <Button onClick={this.props.onHide}>Cancel</Button>
             </Modal.Footer>
             </Modal>

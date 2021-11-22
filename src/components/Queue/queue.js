@@ -81,7 +81,8 @@ class QueueDashboard extends Component {
             </Button>
             <CreateQueuePopUp 
             show={this.state.editQueue} userData={this.state.userData} 
-            onHide={this.toggleEditQueue}/>
+            onHide={this.toggleEditQueue}
+            queueId = {this.state.queueId}/>
             <Button variant="danger" disabled={queueData.isDeleted} onClick={this.deactivateQueue}>
               deactivate
             </Button> 
