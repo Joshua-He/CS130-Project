@@ -31,6 +31,12 @@ class QueueDashboard extends Component {
       this.props.history.push({pathname: ROUTES.QUEUE + this.state.queueId, state: this.state});
   }
 
+  deactivateQueue = () => {
+    console.log("Deactivate queue", this.state.queueId);
+    this.props.firebase.dbDeleteQueue(this.state.queueId).then
+    (this.setState({queueData: null}));
+  }
+
   render() {
     const {
       queueId,
@@ -38,7 +44,7 @@ class QueueDashboard extends Component {
       error,
     } = this.state;
     let queue;
-    if (queueData) {
+    if (queueData && !queueData.isDeleted) {
       queue =  
       <Col>
         <Card className="p-3" style={{ width: '22rem' }}>
@@ -50,6 +56,9 @@ class QueueDashboard extends Component {
             </Card.Text>
             <Button variant="primary" onClick={this.enterQueue}>
               enter this queue
+            </Button> 
+            <Button variant="danger" onClick={this.deactivateQueue}>
+              deactivate this queue, {this.state.queueId}
             </Button> 
           </Card.Body>
         </Card>

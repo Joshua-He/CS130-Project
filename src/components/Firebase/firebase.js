@@ -74,6 +74,12 @@ class Firebase {
     ;
   }
 
+  dbDeleteQueue = (queueId) => {
+    return this.db.collection("queue").doc(queueId).update({
+      isDeleted: true,
+    })
+  }
+
   dbGetQueue = (queueId) => {
     return this.db.collection("queue").doc(queueId);
   }
