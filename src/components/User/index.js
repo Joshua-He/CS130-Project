@@ -4,6 +4,7 @@ import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
 import { CreateQueuePopUp } from '../Queue/createQueue';
+import { JoinQueuePopUp } from '../Queue/joinQueue';
 import Queue from '../Queue/queue';
 import UpdateUserInfoPopUp from './updateUserInfo';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,6 +25,7 @@ class UserView extends Component {
       isLoading: true,
       createQueue: false,
       addTicket: false,
+      joinQueue: false,
     };
   }
 
@@ -48,6 +50,10 @@ class UserView extends Component {
     this.setState({createQueue:!this.state.createQueue})
   }
 
+  joinQueue = () => {
+    this.setState({joinQueue:!this.state.joinQueue})
+  }
+
   updateUserInfo = () => {
     this.setState({updateUserInfo:!this.state.updateUserInfo})
   }
@@ -62,7 +68,7 @@ class UserView extends Component {
           <Container>
           <Navbar.Brand>Kyoo</Navbar.Brand>
           <Nav className="me-auto">
-            {this.state.userData && this.state.userData.isInstructor === true?  <Button onClick={this.createQueue}>Create queue</Button> : null}
+            {this.state.userData && this.state.userData.isInstructor === true?  <Button onClick={this.createQueue}>Create queue</Button> : <Button onClick={this.joinQueue}>Join queue</Button>}
             <Button onClick={this.updateUserInfo}>Update info</Button>
             <SignOutButton/>
           </Nav>
@@ -86,6 +92,9 @@ class UserView extends Component {
         <CreateQueuePopUp 
         show={this.state.createQueue} userData={this.state.userData} 
         onHide={this.createQueue}/>
+        <JoinQueuePopUp 
+        show={this.state.joinQueue} userData={this.state.userData} 
+        onHide={this.joinQueue}/>
       </div>
     )
   }

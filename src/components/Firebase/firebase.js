@@ -74,6 +74,25 @@ class Firebase {
     ;
   }
 
+  dbJoinQueue = (userId, token) => {
+    return this.db.collection("users").doc(userId).update({
+      queues: firebase.firestore.FieldValue.arrayUnion(token)
+    })
+  ;
+  }
+
+  dbExistQueue = (token) => {
+    return this.db.collection('queue').doc(token).get()
+    .then((docSnapshot) => {
+      if (docSnapshot.exists) {
+        console.log("exist");
+        return true;
+      }
+      console.log("not exist");
+      return false;
+    });
+  }
+
   dbDeleteQueue = (queueId) => {
     return this.db.collection("queue").doc(queueId).update({
       isDeleted: true,
