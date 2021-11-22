@@ -67,10 +67,10 @@ class QueueDashboard extends Component {
               editButtonContent="Edit"
             />
             <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
-              enter this queue
+              enter
             </Button> 
             <Button variant="danger" disabled={queueData.isDeleted} onClick={this.deactivateQueue}>
-              deactivate this queue
+              deactivate
             </Button> 
           </Card.Body>
         </Card>
