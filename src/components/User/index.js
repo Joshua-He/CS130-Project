@@ -78,8 +78,7 @@ class UserView extends Component {
               </Row>}
             </div> 
         </Row>
-        </Container>
-    
+        </Container> 
         <UpdateUserInfoPopUp 
         show={this.state.updateUserInfo} updatedata={this.updateData} userdata={this.state.userData}
         onHide={this.updateUserInfo}
