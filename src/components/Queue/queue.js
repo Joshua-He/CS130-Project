@@ -5,6 +5,7 @@ import {Button, Card, Col}from 'react-bootstrap';
 import { compose } from 'recompose';
 import * as ROUTES from '../../constants/routes';
 import EdiText from 'react-editext';
+import { CreateQueuePopUp } from '../Queue/createQueue';
 
 class QueueDashboard extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class QueueDashboard extends Component {
         queueId: this.props.queueid,
         ticketCreated: false,
         userData: this.props.userdata,
+        editQueue: false,
     };
   }
 
@@ -42,6 +44,10 @@ class QueueDashboard extends Component {
     (this.setState({queueData: null}));
   }
 
+  toggleEditQueue = () => {
+    this.setState({editQueue:!this.state.editQueue})
+  }
+
   render() {
     const {
       queueId,
@@ -53,6 +59,9 @@ class QueueDashboard extends Component {
       queue =  
       <Col>
         <Card className="p-3" style={{ width: '22rem' }}>
+        <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
+              enter
+            </Button> 
           <Card.Body>
             <Card.Title>{queueData.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
@@ -66,9 +75,13 @@ class QueueDashboard extends Component {
               onSave={this.onEdit}
               editButtonContent="Edit"
             />
-            <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
-              enter
-            </Button> 
+            
+            <Button onClick={this.toggleEditQueue} >
+              Edit queue
+            </Button>
+            <CreateQueuePopUp 
+            show={this.state.editQueue} userData={this.state.userData} 
+            onHide={this.toggleEditQueue}/>
             <Button variant="danger" disabled={queueData.isDeleted} onClick={this.deactivateQueue}>
               deactivate
             </Button> 
