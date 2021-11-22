@@ -76,9 +76,6 @@ class QueueWithTickets extends Component {
                 ?  <Button onClick={this.editTicket}>Edit ticket</Button> 
                 :  <Button onClick={this.addTicket}>Add ticket</Button> 
               }
-              <Button variant="primary" onClick={this.resolveTicket}>
-                Resolve ticket
-              </Button>
               <Button variant="primary" onClick={this.backToMain}>
                 Go back to main page
               </Button>
