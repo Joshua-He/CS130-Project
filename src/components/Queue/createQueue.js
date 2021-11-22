@@ -70,8 +70,30 @@ class CreateQueue extends Component{
         });
     }
 
+    editQueue = () => {
+        const {
+            queueName,
+            description,
+            announcement,
+            queueLocation,
+            queueVLocation,
+            queueStartTime,
+            queueEndTime,
+        } = this.state; 
+        this.props.firebase
+        .dbEditQueue(this.props.queueId, queueName, description,announcement, queueLocation, queueVLocation, queueStartTime, queueEndTime)
+        .then(() => {
+            console.log("queue saved succesfully!")
+            this.props.onHide();
+        })
+        .catch(error => {
+            this.setState({ error });
+        });
+    }
+
     render(){
         let title;
+        let onSave;
         const {
             queueName,
             description,
@@ -83,11 +105,12 @@ class CreateQueue extends Component{
         } = this.state;
         if (!this.props.queueId) {
             title = "Create New Office Hour Queue";
+            onSave = this.createQueue;
         }
         else {
             title = "Edit Office Hour Queue";
+            onSave = this.editQueue;
         }
-
 
         return (
              <Modal
@@ -148,7 +171,7 @@ class CreateQueue extends Component{
                
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={this.createQueue}>Save</Button>
+                <Button onClick={onSave}>Save</Button>
                 <Button onClick={this.props.onHide}>Cancel</Button>
             </Modal.Footer>
             </Modal>
