@@ -111,6 +111,18 @@ class Firebase {
     })
   }
 
+  dbEditQueue = (queueId, queueName, description, announcement, queueLocation, queueVLocation, queueStartTime, queueEndTime) => {
+    return this.db.collection("queue").doc(queueId).update({
+      name: queueName,
+      description: description,
+      announcement: announcement,
+      location: queueLocation,
+      vLocation: queueVLocation,
+      startTime: queueStartTime,
+      endTime: queueEndTime,
+    })
+  }
+
   dbGetQueue = (queueId) => {
     return this.db.collection("queue").doc(queueId);
   }
