@@ -11,6 +11,7 @@ class JoinQueue extends Component{
         super(props);
         this.state = {
             queueToken: '',
+            existQueue: true,
         };
     }
 
@@ -25,7 +26,16 @@ class JoinQueue extends Component{
         } = this.state; 
         console.log(queueToken);
 
-        this.props.firebase.dbExistQueue(queueToken);
+        this.props.firebase
+        .dbExistQueue(queueToken)
+        .then((queueExists) => {
+            console.log(queueExists);
+            this.setState({existQueue: queueExists})
+        })
+
+       
+
+        
 
         /*
         this.props.firebase
@@ -44,6 +54,7 @@ class JoinQueue extends Component{
     render(){
         const {
             queueToken,
+            existQueue,
         } = this.state;
         
         return (
@@ -64,6 +75,10 @@ class JoinQueue extends Component{
                     onChange={this.changeQueueInformation}
                     type="text"
                 /><br/>
+                
+                {existQueue? 
+                null :
+                <div><label> Class token does not exist! Check token </label><br/></div>}
                 
                
             </Modal.Body>

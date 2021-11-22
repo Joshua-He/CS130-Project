@@ -81,6 +81,7 @@ class Firebase {
         console.log("exist");
         return true;
       }
+      console.log("not exist");
       return false;
     });
   }
