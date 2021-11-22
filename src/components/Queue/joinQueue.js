@@ -18,19 +18,43 @@ class JoinQueue extends Component{
     changeQueueInformation = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
-    
+
+    clearText = () => {
+        this.setState({
+            queueToken: '',
+            existQueue: true,
+        });
+        this.props.onHide();
+
+    }
+
     joinQueue = () => { 
         let userId = this.props.userData.userId;
         const {
             queueToken
         } = this.state; 
-        console.log(queueToken);
+        const token = queueToken.trim();
+  
 
         this.props.firebase
-        .dbExistQueue(queueToken)
+        .dbExistQueue(token)
         .then((queueExists) => {
-            console.log(queueExists);
-            this.setState({existQueue: queueExists})
+            if (queueExists) {
+                this.props.firebase
+                .dbJoinQueue(userId, token)
+                .then(() => {
+                    console.log("join queue succesfully!")
+                    this.setState({
+                        queueToken: '',
+                        existQueue: true,
+                    });
+                    this.props.onHide();
+                })
+            }
+            else {
+                this.setState({existQueue: queueExists})
+            }
+            
         })
 
        
@@ -56,6 +80,7 @@ class JoinQueue extends Component{
             queueToken,
             existQueue,
         } = this.state;
+
         
         return (
              <Modal
@@ -84,7 +109,9 @@ class JoinQueue extends Component{
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={this.joinQueue}>Join</Button>
-                <Button onClick={this.props.onHide}>Cancel</Button>
+                <Button onClick={
+                    this.clearText
+                    }>Cancel</Button>
             </Modal.Footer>
             </Modal>
         )

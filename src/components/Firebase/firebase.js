@@ -74,6 +74,13 @@ class Firebase {
     ;
   }
 
+  dbJoinQueue = (userId, token) => {
+    return this.db.collection("users").doc(userId).update({
+      queues: firebase.firestore.FieldValue.arrayUnion(token)
+    })
+  ;
+  }
+
   dbExistQueue = (token) => {
     return this.db.collection('queue').doc(token).get()
     .then((docSnapshot) => {
