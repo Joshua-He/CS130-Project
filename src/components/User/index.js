@@ -33,7 +33,7 @@ class UserView extends Component {
     .onSnapshot((snapShot) => {
         let data = snapShot.data();
         this.setState({userData: data, isLoading: false});
-        console.log("current state",this.state)
+        console.log("current state in UserPage",this.state)
     })
   }
   

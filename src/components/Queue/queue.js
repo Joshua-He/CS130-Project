@@ -53,8 +53,13 @@ class QueueDashboard extends Component {
       queueId,
       queueData,
       error,
+      userData
     } = this.state;
     let queue;
+    let enableDrop = userData.isInstructor && queueData ? 
+    <Button variant="danger" disabled={queueData.isDeleted} onClick={this.deactivateQueue}>
+    deactivate
+    </Button> : null;
     if (queueData) {
       queue =  
       <Col>
@@ -65,16 +70,7 @@ class QueueDashboard extends Component {
           <Card.Body>
             <Card.Title>{queueData.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
-            <EdiText
-              type="text"
-              viewProps={{
-                className: 'react-answer-1',
-                style: { borderRadius: 3 }
-              }}
-              value={queueData.description}
-              onSave={this.onEdit}
-              editButtonContent="Edit"
-            />
+            <Card.Text>{queueData.description}</Card.Text>
             
             <Button onClick={this.toggleEditQueue} >
               Edit queue
@@ -83,9 +79,7 @@ class QueueDashboard extends Component {
             show={this.state.editQueue} userData={this.state.userData} 
             onHide={this.toggleEditQueue}
             queueId = {this.state.queueId}/>
-            <Button variant="danger" disabled={queueData.isDeleted} onClick={this.deactivateQueue}>
-              deactivate
-            </Button> 
+            {enableDrop}
           </Card.Body>
         </Card>
       </Col>
