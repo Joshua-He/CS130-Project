@@ -44,7 +44,7 @@ class QueueDashboard extends Component {
       error,
     } = this.state;
     let queue;
-    if (queueData && !queueData.isDeleted) {
+    if (queueData) {
       queue =  
       <Col>
         <Card className="p-3" style={{ width: '22rem' }}>
@@ -54,10 +54,10 @@ class QueueDashboard extends Component {
             <Card.Text>
             {queueData.description}
             </Card.Text>
-            <Button variant="primary" onClick={this.enterQueue}>
+            <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
               enter this queue
             </Button> 
-            <Button variant="danger" onClick={this.deactivateQueue}>
+            <Button variant="danger" disabled={queueData.isDeleted} onClick={this.deactivateQueue}>
               deactivate this queue
             </Button> 
           </Card.Body>
