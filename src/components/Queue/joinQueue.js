@@ -10,13 +10,7 @@ class JoinQueue extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            queueName: '',
-            description: '',
-            announcement:'',
-            queueLocation:'',
-            queueVLocation:'',
-            queueStartTime:'',
-            queueEndTime:'',
+            queueToken: '',
         };
     }
 
@@ -27,14 +21,13 @@ class JoinQueue extends Component{
     joinQueue = () => { 
         let userId = this.props.userData.userId;
         const {
-            queueName,
-            description,
-            announcement,
-            queueLocation,
-            queueVLocation,
-            queueStartTime,
-            queueEndTime,
+            queueToken
         } = this.state; 
+        console.log(queueToken);
+
+        this.props.firebase.dbExistQueue(queueToken);
+
+        /*
         this.props.firebase
         .dbCreateQueue(userId, queueName, description,announcement, 
             queueLocation, queueVLocation, queueStartTime, queueEndTime)
@@ -45,17 +38,12 @@ class JoinQueue extends Component{
         .catch(error => {
             this.setState({ error });
         });
+        */
     }
 
     render(){
         const {
-            queueName,
-            description,
-            announcement,
-            queueLocation,
-            queueVLocation,
-            queueStartTime,
-            queueEndTime,
+            queueToken,
         } = this.state;
         
         return (
@@ -69,54 +57,18 @@ class JoinQueue extends Component{
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <label> Class Name </label><br/>
+                <label> Class token </label><br/>
                 <input
-                    name="queueName"
-                    value={queueName}
+                    name="queueToken"
+                    value={queueToken}
                     onChange={this.changeQueueInformation}
                     type="text"
                 /><br/>
-                <label> Description </label><br/>
-                <input
-                    name="description"
-                    value={description}
-                    onChange={this.changeQueueInformation}
-                    type="text"
-                /><br/>
-                <label> Location </label><br/> 
-                <input
-                    name="queueLocation"
-                    value={queueLocation}
-                    onChange={this.changeQueueInformation}
-                    type="text"
-                /><br/>
-                <label> Virtual location </label><br/> 
-                <input
-                    name="queueVLocation"
-                    value={queueVLocation}
-                    onChange={this.changeQueueInformation} 
-                    type="text"
-                /><br/>
-                <label> Start time </label><br/> 
-                <input
-                    name="queueStartTime"
-                    value={queueStartTime}
-                    type="time"
-                    min="08:00" max="21:00"
-                    onChange={this.changeQueueInformation} 
-                /><br/>
-                <label> End time </label><br/> 
-                <input
-                    name="queueEndTime"
-                    value={queueEndTime}
-                    type="time"
-                    min="08:00" max="21:00"
-                    onChange={this.changeQueueInformation} 
-                />
+                
                
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={this.createQueue}>Create</Button>
+                <Button onClick={this.joinQueue}>Join</Button>
                 <Button onClick={this.props.onHide}>Cancel</Button>
             </Modal.Footer>
             </Modal>

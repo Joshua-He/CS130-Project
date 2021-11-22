@@ -74,6 +74,23 @@ class Firebase {
     ;
   }
 
+  dbExistQueue = (token) => {
+    var docRef = this.db.collection("queue").doc(token);
+
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            console.log("exist", doc.data());
+            return true;
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            return false;
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+  }
+
   dbDeleteQueue = (queueId) => {
     return this.db.collection("queue").doc(queueId).update({
       isDeleted: true,

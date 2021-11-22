@@ -4,6 +4,7 @@ import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { SignOutButton } from '../SignOut';
 import { CreateQueuePopUp } from '../Queue/createQueue';
+import { JoinQueuePopUp } from '../Queue/joinQueue';
 import Queue from '../Queue/queue';
 import UpdateUserInfoPopUp from './updateUserInfo';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -92,7 +93,7 @@ class UserView extends Component {
         <CreateQueuePopUp 
         show={this.state.createQueue} userData={this.state.userData} 
         onHide={this.createQueue}/>
-        <joinQueuePopUp 
+        <JoinQueuePopUp 
         show={this.state.joinQueue} userData={this.state.userData} 
         onHide={this.joinQueue}/>
       </div>
