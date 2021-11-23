@@ -93,9 +93,15 @@ class Firebase {
     });
   }
 
-  dbDeleteQueue = (queueId) => {
+  dbDeactivateQueue = (queueId) => {
     return this.db.collection("queue").doc(queueId).update({
       isDeleted: true,
+    })
+  }
+
+  dbReactivateQueue = (queueId) => {
+    return this.db.collection("queue").doc(queueId).update({
+      isDeleted: false,
     })
   }
 
@@ -145,6 +151,12 @@ class Firebase {
     console.log("add ticket to queue")
     return this.db.collection("queue").doc(queueId).update({
       [`tickets.${ticketId}`]:createdAt
+    })
+  }
+
+  dbAddTicketToUser = (ticketId, userId) => {
+    return this.db.collection("users").doc(userId).update({
+      tickets: firebase.firestore.FieldValue.arrayUnion(ticketId)
     })
   }
 }

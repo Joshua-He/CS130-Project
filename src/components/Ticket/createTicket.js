@@ -36,7 +36,9 @@ class CreateTicket extends Component{
         .then((ticket) => {return ticket.data()})
         .then((ticketData) => {
             console.log(ticketData.createdAt)
+            this.props.ticketcreated();
             this.props.onHide();
+            this.props.firebase.dbAddTicketToUser(this.state.ticketId,this.state.userId)
             return this.props.firebase.dbAddTicketToQueue(this.state.ticketId,this.state.queueId, ticketData.createdAt)
         })
         .catch(error => {

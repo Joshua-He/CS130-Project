@@ -39,9 +39,21 @@ class QueueDashboard extends Component {
   }
 
   deactivateQueue = () => {
-    console.log("Deactivate queue", this.state.queueId);
-    this.props.firebase.dbDeleteQueue(this.state.queueId).then
-    (this.setState({queueData: null}));
+    this.props.firebase.dbDeactivateQueue(this.state.queueId)
+    .then(() => {
+      let queueData = this.state.queueData;
+      queueData.isDeleted = true;
+      this.setState({queueData: queueData})
+    })
+  }
+
+  reactivateQueue = () => {
+    this.props.firebase.dbReactivateQueue(this.state.queueId)
+    .then(() => {
+      let queueData = this.state.queueData;
+      queueData.isDeleted = false;
+      this.setState({queueData: queueData})
+    })
   }
 
   toggleEditQueue = () => {
@@ -56,30 +68,35 @@ class QueueDashboard extends Component {
       userData
     } = this.state;
     let queue;
-    let enableDrop = userData.isInstructor && queueData ? 
-    <Button variant="danger" disabled={queueData.isDeleted} onClick={this.deactivateQueue}>
-    deactivate
-    </Button> : null;
     if (queueData) {
       queue =  
       <Col>
         <Card className="p-3" style={{ width: '22rem' }}>
-        <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
-              enter
-            </Button> 
           <Card.Body>
             <Card.Title>{queueData.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
             <Card.Text>{queueData.description}</Card.Text>
-            
+            {this.state.userData.isInstructor && 
             <Button onClick={this.toggleEditQueue} >
               Edit queue
-            </Button>
+            </Button>}
+            <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
+              enter
+            </Button> 
             <CreateQueuePopUp 
             show={this.state.editQueue} userData={this.state.userData} 
             onHide={this.toggleEditQueue}
             queueId = {this.state.queueId}/>
-            {enableDrop}
+            {userData.isInstructor && !queueData.isDeleted &&
+              <Button variant="danger" onClick={this.deactivateQueue}>
+            deactivate
+            </Button> 
+            }
+            {userData.isInstructor && queueData.isDeleted && 
+              <Button variant="primary" onClick={this.reactivateQueue}>
+            reactivate
+            </Button> 
+            }
           </Card.Body>
         </Card>
       </Col>

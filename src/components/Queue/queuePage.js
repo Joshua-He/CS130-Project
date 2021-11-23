@@ -31,24 +31,32 @@ class QueueWithTickets extends Component {
         this.setState({queueData: data});
     })
     
-    console.log("queuepage state", this.state)
-    let ticketLength = 0;
-    if(this.state.userData.tickets){
-      ticketLength = this.state.userData.tickets.length;
-    }
-    for (let i = 0; i < ticketLength; i++){
-        if (Object.keys(this.state.queueData.tickets).includes(this.state.userData.tickets[i])){
-            this.setState({addTicket:false,editTicket:false, createdTicket: true, userTicketId: this.state.userData.tickets[i]})
-            return
-        }
-    }
-    this.setState({createdTicket: false, addTicket:false,editTicket:false})
+    // console.log("queuepage state", this.state)
+    // let ticketLength = 0;
+    // if(this.state.userData.tickets){
+    //   ticketLength = this.state.userData.tickets.length;
+    // }
+    // for (let i = 0; i < ticketLength; i++){
+    //     if (Object.keys(this.state.queueData.tickets).includes(this.state.userData.tickets[i])){
+    //         this.setState({addTicket:false,editTicket:false, createdTicket: true, userTicketId: this.state.userData.tickets[i]})
+    //         return
+    //     }
+    // }
+    // this.setState({createdTicket: false, addTicket:false,editTicket:false})
   }
 
   sortTimestamp = (keys) => {
       return keys.sort((k1,k2) => this.state.queueData.tickets[k1]['seconds'] - this.state.queueData.tickets[k2]['seconds'])
   }
-  
+
+  ticketCreated = () => {
+    this.setState({ticketCreated:true});
+  }
+
+  ticketResolved = () => {
+    this.setState({ticketCreated:false});
+  }
+
   addTicket = () => {
     this.setState({addTicket:!this.state.addTicket})
   }
@@ -73,9 +81,8 @@ class QueueWithTickets extends Component {
             <Navbar.Brand>Kyoo</Navbar.Brand>
             <Nav className="me-auto">
               {
-                this.state.createdTicket
-                ?  <Button onClick={this.editTicket}>Edit ticket</Button> 
-                :  <Button onClick={this.addTicket}>Add ticket</Button> 
+                !this.state.ticketCreated
+                &&<Button onClick={this.addTicket}>Add ticket</Button> 
               }
               <Button variant="primary" onClick={this.backToMain}>
                 Go back to main page
@@ -88,11 +95,13 @@ class QueueWithTickets extends Component {
           <div>
           {orderedTicketIds && 
             <Row md={1} className="justify-content-center g-3">
-              {orderedTicketIds.map((ticketId) => <Ticket ticketid={ticketId}/>)}
+              {orderedTicketIds.map((ticketId) => <Ticket ticketcreated={this.ticketCreated} ticketresolved={this.ticketResolved} isinstructor={this.state.userData.isInstructor} userid={this.state.userData.userId} ticketid={ticketId}/>)}
             </Row>}
           </div>
           {/* <EditTicketPopUp userticketid={this.state.userTicketId} queueid={this.state.queueId} userdata={this.state.userData}/>  */}
-          <CreateTicketPopUp onHide={this.addTicket} show={this.state.addTicket} queueid={this.state.queueId} userdata={this.state.userData}/> 
+          <CreateTicketPopUp onHide={this.addTicket} 
+          show={this.state.addTicket} queueid={this.state.queueId} 
+          userdata={this.state.userData} ticketcreated={this.ticketCreated}/> 
         </div>
     );
   }

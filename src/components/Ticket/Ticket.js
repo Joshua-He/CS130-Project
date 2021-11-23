@@ -9,6 +9,7 @@ class TicketView extends Component {
         super(props);
         this.state = {
             ticketId: this.props.ticketid,
+            owned: false,
         };
     }
 
@@ -16,20 +17,28 @@ class TicketView extends Component {
         this.props.firebase
             .dbGetTicket(this.state.ticketId)
             .onSnapshot((snapShot) => {
-                console.log(this.state.ticketId)
-                console.log("In Ticket onSnapshot called!",snapShot.data())
-                this.setState({ ticketData:snapShot.data()});
+                let ticketData = snapShot.data()
+                this.setState({ ticketData:ticketData});
+                if (ticketData && ticketData.userId == this.props.userid){
+                    this.setState({owned: true})
+                    this.props.ticketcreated();
+                }
+                return
             })
     }
 
     resolveTicket = () => {
-        this.props.firebase.dbDeleteTicket(this.state.ticketId).then
-        (this.setState({queueData: null}));
+        this.props.firebase.dbDeleteTicket(this.state.ticketId)
+        .then(() => {
+            this.setState({ticketData: null});
+            this.props.ticketresolved();
+        })
     }
 
     render() {
         const {
-            ticketData
+            ticketData,
+            owned
         } = this.state
         let ticket;
         if (ticketData && !ticketData.isResolved) {
@@ -43,9 +52,18 @@ class TicketView extends Component {
                     <Card.Text>
                     {ticketData.description}
                     </Card.Text>
+                    {
+                    owned&&!this.props.isinstructor&&
                     <Button variant="danger" onClick={this.resolveTicket}>
                     resolve this ticket
-                    </Button> 
+                    </Button>
+                    }
+                    {
+                    this.props.isinstructor&&
+                    <Button variant="danger" onClick={this.resolveTicket}>
+                    resolve this ticket
+                    </Button>
+                    } 
                 </Card.Body>
                 </Card>
             </Col>
