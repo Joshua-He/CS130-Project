@@ -74,6 +74,7 @@ class QueueDashboard extends Component {
         <Card className="p-3" style={{ width: '22rem' }}>
           <Card.Body>
             <Card.Title>{queueData.name}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">{"ID:" + this.state.queueId}</Card.Subtitle>
             <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
             <Card.Text>{queueData.description}</Card.Text>
             {this.state.userData.isInstructor && 
