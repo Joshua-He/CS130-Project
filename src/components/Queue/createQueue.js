@@ -5,7 +5,8 @@ import { compose } from 'recompose';
 import { Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { StandaloneSearchBox } from '@react-google-maps/api';
+import {googleMapAPIKey} from '../../configuration';
+import Autocomplete from "react-google-autocomplete";
 
 class CreateQueue extends Component{
     constructor(props) {
@@ -85,12 +86,19 @@ class CreateQueue extends Component{
                     type="text"
                 /><br/>
                 <label> Location </label><br/> 
-                <input
+                {/* <input
                     name="queueLocation"
                     value={queueLocation}
                     onChange={this.changeQueueInformation}
                     type="text"
-                /><br/>
+                /><br/> */}
+                <Autocomplete
+                apiKey={googleMapAPIKey.apiKey}
+                onPlaceSelected={(place) => {
+                    console.log(place);
+                }}
+                />;
+           
                 <label> Virtual location </label><br/> 
                 <input
                     name="queueVLocation"

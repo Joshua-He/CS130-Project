@@ -4,6 +4,7 @@ import { withFirebase } from '../Firebase';
 import {Button, Card, Col}from 'react-bootstrap';
 import { compose } from 'recompose';
 import * as ROUTES from '../../constants/routes';
+import QueueLocation from './queueMap';
 
 class QueueDashboard extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class QueueDashboard extends Component {
       queue =  
       <Col>
         <Card className="p-3" style={{ width: '22rem' }}>
+          <QueueLocation />
           <Card.Body>
             <Card.Title>{queueData.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>

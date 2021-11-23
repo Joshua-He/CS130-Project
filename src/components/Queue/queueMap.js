@@ -11,21 +11,27 @@ const center = {
   lng: -38.523
 };
 
-function MyComponent() {
-  return (
-    <LoadScript
-      googleMapsApiKey={googleMapAPIKey.apiKey}
-    >
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
-    </LoadScript>
-  )
+class QueueLocation extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render(){
+        return (
+            <LoadScript
+              googleMapsApiKey={googleMapAPIKey.apiKey}
+            >
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={10}
+              >
+                { /* Child components, such as markers, info windows, etc. */ }
+                <></>
+              </GoogleMap>
+            </LoadScript>
+          )
+    }
 }
 
-export default React.memo(MyComponent)
+export default QueueLocation;
