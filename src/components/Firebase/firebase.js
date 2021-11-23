@@ -95,7 +95,7 @@ class Firebase {
 
   dbDeactivateQueue = (queueId) => {
     return this.db.collection("queue").doc(queueId).update({
-      isDeleted: !currentStatus,
+      isDeleted: true,
     })
   }
 
