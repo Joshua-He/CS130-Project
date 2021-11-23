@@ -56,23 +56,6 @@ class JoinQueue extends Component{
             }
             
         })
-
-       
-
-        
-
-        /*
-        this.props.firebase
-        .dbCreateQueue(userId, queueName, description,announcement, 
-            queueLocation, queueVLocation, queueStartTime, queueEndTime)
-        .then(() => {
-            console.log("queue created succesfully!")
-            this.props.onHide();
-        })
-        .catch(error => {
-            this.setState({ error });
-        });
-        */
     }
 
     render(){
