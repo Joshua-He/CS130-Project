@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import {Button, Card, Col}from 'react-bootstrap';
+import EditTicketPopUp from '../Ticket/editTicket';
 
 class TicketView extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class TicketView extends Component {
         this.state = {
             ticketId: this.props.ticketid,
             owned: false,
+            editTicket: false,
         };
     }
 
@@ -35,12 +37,28 @@ class TicketView extends Component {
         })
     }
 
+    updateTicketData = (description) => {
+        let ticketData = this.state.ticketData;
+        if(ticketData){
+            ticketData.description = description
+            this.setState({
+                ticketData: ticketData
+            })
+        }
+    }
+    editTicket = () => {
+        this.setState({
+            editTicket : !this.state.editTicket
+        })
+    }
+
     render() {
         const {
             ticketData,
             owned
         } = this.state
         let ticket;
+        console.log("ticket info", this.state)
         if (ticketData && !ticketData.isResolved) {
             ticket = 
             <Col>
@@ -55,15 +73,23 @@ class TicketView extends Component {
                     {
                     owned&&!this.props.isinstructor&&
                     <Button variant="danger" onClick={this.resolveTicket}>
-                    resolve this ticket
+                    resolve
+                    </Button>
+                    }
+                    {
+                    owned&&!this.props.isinstructor&&
+                    <Button variant="primary" onClick={this.editTicket}>
+                    edit
                     </Button>
                     }
                     {
                     this.props.isinstructor&&
                     <Button variant="danger" onClick={this.resolveTicket}>
-                    resolve this ticket
+                    resolve
                     </Button>
                     } 
+                    <EditTicketPopUp onHide={this.editTicket} show={this.state.editTicket}
+                     ticketdata={ticketData} ticketid={this.state.ticketId} editticket={this.updateTicketData}/> 
                 </Card.Body>
                 </Card>
             </Col>

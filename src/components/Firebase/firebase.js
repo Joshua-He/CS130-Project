@@ -143,6 +143,12 @@ class Firebase {
     })
   };
 
+  dbEditTicket = (description, ticketId) => {
+    return this.db.collection("ticket").doc(ticketId).update({
+      description: description,
+    })
+  };
+
   dbGetTicket = (ticketId) => {
     return this.db.collection("ticket").doc(ticketId);
   }

@@ -10,22 +10,10 @@ class EditTicket extends Component {
         super(props);
         this.state =
         {
-            userdata: this.props.userdata,
-            ticketId: this.props.userticketId,
-            ticketData:{},
+            description:this.props.ticketdata.description,
+            ticketId:this.props.ticketid,
+            error: null,
         }
-    }
-
-    componentDidMount() {
-        this.props.firebase
-            .dbGetTicket(this.state.ticketId)
-            .then((ticketInfo) => {
-                let ticketData = ticketInfo.data();
-                this.setState({ticketData:ticketData});
-              })
-              .catch(error => {
-                this.setState({ error });
-              });
     }
 
     notifyChange = event => {
@@ -34,10 +22,12 @@ class EditTicket extends Component {
 
     edit = () => {
         const { description, ticketId } = this.state;
+        console.log("ti",this.state)
         this.props.firebase
             .dbEditTicket(description, ticketId)
             .then(() => {
                 console.log("ticket edited")
+                this.props.editticket(description);
                 this.props.onHide();
             })
             .catch(error => {
@@ -49,7 +39,7 @@ class EditTicket extends Component {
         const {
             description,
             error,
-        } = this.state.ticketData;
+        } = this.state
 
         const isInvalid =
             description === ''
@@ -65,7 +55,6 @@ class EditTicket extends Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* <label>Submit your question</label> */}
                     <input
                         name="description"
                         value={description}

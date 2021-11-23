@@ -5,7 +5,6 @@ import * as ROUTES from '../../constants/routes';
 import { compose } from 'recompose';
 import Ticket from '../Ticket/Ticket';
 import CreateTicketPopUp from '../Ticket/createTicket';
-import EditTicketPopUp from '../Ticket/editTicket';
 import ChromeDinoGame from 'react-chrome-dino';
 import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
 
@@ -30,19 +29,6 @@ class QueueWithTickets extends Component {
         let data = snapShot.data();
         this.setState({queueData: data});
     })
-    
-    // console.log("queuepage state", this.state)
-    // let ticketLength = 0;
-    // if(this.state.userData.tickets){
-    //   ticketLength = this.state.userData.tickets.length;
-    // }
-    // for (let i = 0; i < ticketLength; i++){
-    //     if (Object.keys(this.state.queueData.tickets).includes(this.state.userData.tickets[i])){
-    //         this.setState({addTicket:false,editTicket:false, createdTicket: true, userTicketId: this.state.userData.tickets[i]})
-    //         return
-    //     }
-    // }
-    // this.setState({createdTicket: false, addTicket:false,editTicket:false})
   }
 
   sortTimestamp = (keys) => {
@@ -59,10 +45,6 @@ class QueueWithTickets extends Component {
 
   addTicket = () => {
     this.setState({addTicket:!this.state.addTicket})
-  }
-
-  editTicket = () => {
-    this.setState({editTicket:!this.state.editTicket})
   }
 
   backToMain = () => {
@@ -98,7 +80,6 @@ class QueueWithTickets extends Component {
               {orderedTicketIds.map((ticketId) => <Ticket ticketcreated={this.ticketCreated} ticketresolved={this.ticketResolved} isinstructor={this.state.userData.isInstructor} userid={this.state.userData.userId} ticketid={ticketId}/>)}
             </Row>}
           </div>
-          {/* <EditTicketPopUp userticketid={this.state.userTicketId} queueid={this.state.queueId} userdata={this.state.userData}/>  */}
           <CreateTicketPopUp onHide={this.addTicket} 
           show={this.state.addTicket} queueid={this.state.queueId} 
           userdata={this.state.userData} ticketcreated={this.ticketCreated}/> 
