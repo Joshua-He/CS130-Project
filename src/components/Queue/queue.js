@@ -68,6 +68,13 @@ class QueueDashboard extends Component {
       userData
     } = this.state;
     let queue;
+<<<<<<< HEAD
+=======
+    let enableDrop = userData.isInstructor && queueData ? 
+    <Button variant="danger" onClick={this.changeQueueActiveStatus}>
+    {queueData.isDeleted ? "reactivate" : "deactivate"}
+    </Button> : null;
+>>>>>>> 852f3964bdbfadb28d541b3276cee4405e68c518
     if (queueData) {
       queue =  
       <Col>
