@@ -38,10 +38,8 @@ class QueueDashboard extends Component {
     return this.props.firebase.dbEditQueueDescription(this.state.queueId, val);
   }
 
-  deactivateQueue = () => {
-    console.log("Deactivate queue", this.state.queueId);
-    this.props.firebase.dbDeleteQueue(this.state.queueId).then
-    (this.setState({queueData: null}));
+  changeQueueActiveStatus = () => {
+    this.props.firebase.dbChangeQueueStatus(this.state.queueId, this.state.queueData.isDeleted);
   }
 
   toggleEditQueue = () => {
@@ -57,8 +55,8 @@ class QueueDashboard extends Component {
     } = this.state;
     let queue;
     let enableDrop = userData.isInstructor && queueData ? 
-    <Button variant="danger" disabled={queueData.isDeleted} onClick={this.deactivateQueue}>
-    deactivate
+    <Button variant="danger" onClick={this.changeQueueActiveStatus}>
+    {queueData.isDeleted ? "reactivate" : "deactivate"}
     </Button> : null;
     if (queueData) {
       queue =  
