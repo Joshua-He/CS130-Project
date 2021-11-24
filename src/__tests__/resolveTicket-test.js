@@ -7,23 +7,23 @@ import { withFirebase } from '../components/Firebase';
 import { compose } from 'recompose';
 
 describe('ticket test ', () => {
-    console.log(firebase.firestore.FieldValue.serverTimestamp());
     let TicketViewTest = class extends TicketView {
         componentDidMount() { 
             this.setState({ 
                 ticketData: 
-                    {createdAt: null,
+                    {createdAt: firebase.firestore.Timestamp.now(),
                     description: "",
                     isResolved: false,
                     ownerName: "Jiaxin",
-                    userId: "8vOkiHTn2xTaSFnDoiu7VRwbmUo2"
-                }
+                    userId: "8vOkiHTn2xTaSFnDoiu7VRwbmUo2",
+                },
+                owned: true
             })
         }
     }
-    const componentWrapper = shallow (<TicketViewTest/>)
+    const componentWrapper = shallow (<TicketViewTest isinstructor={true}/>)
     const instance = componentWrapper.instance()
-    const resolveTicketSpy = jest.spyOn(instance,'resolveTicket')
+    const resolveTicketSpy = jest.spyOn(instance,'resolveTicket').mockImplementation(()=>"resolve ticket")
 
     it('instructor resolve ticket', () => {
         instance.forceUpdate();
