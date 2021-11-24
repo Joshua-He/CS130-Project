@@ -79,7 +79,7 @@ class QueueDashboard extends Component {
             <QueueLocation lat={queueData.lat} lng={queueData.lng} location={queueData.location}/>
             <Card.Title>{queueData.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{"ID: " + this.state.queueId}</Card.Subtitle>
-            <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
+            <Card.Subtitle className="mb-2 text-muted">{"Time: " + queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
             <Card.Text>{queueData.description}</Card.Text>
             <div className="d-grid gap-1">
            

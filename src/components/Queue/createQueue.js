@@ -4,7 +4,6 @@ import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { googleMapAPIKey } from '../../configuration';
 import GetGeocode from './geocode';

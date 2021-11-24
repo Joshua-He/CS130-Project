@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import Ticket from '../Ticket/Ticket';
 import CreateTicketPopUp from '../Ticket/createTicket';
 import ChromeDinoGame from 'react-chrome-dino';
-import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
+import {Container, Nav, Navbar, Button, Row} from 'react-bootstrap'
 
 const QueuePage = (props) => (
     <div>

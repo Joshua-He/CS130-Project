@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container, Row, Col} from 'react-bootstrap';
 
 const SignInPage = (props) => (
-  <div id="signInWrapper">
+  <div id="signInWrapper" className="bg-light">
     <Container>
     <Row>
       <Col className="align-self-center">

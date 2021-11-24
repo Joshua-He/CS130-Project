@@ -7,7 +7,6 @@ import { CreateQueuePopUp } from '../Queue/createQueue';
 import { JoinQueuePopUp } from '../Queue/joinQueue';
 import Queue from '../Queue/queue';
 import UpdateUserInfoPopUp from './updateUserInfo';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap';
 
 
@@ -76,7 +75,7 @@ class UserView extends Component {
           </Container>
         </Navbar>
         <Container>
-          <Row><h1 className="text-center"> Hello, {this.state.userData && this.state.userData.fullName}</h1></Row>
+          <Row><h1 className="text-center" > Hello, {this.state.userData && this.state.userData.fullName}</h1></Row>
           <Row>
             <div>
             {this.state.userData.queues && 
