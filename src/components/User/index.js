@@ -8,7 +8,8 @@ import { JoinQueuePopUp } from '../Queue/joinQueue';
 import Queue from '../Queue/queue';
 import UpdateUserInfoPopUp from './updateUserInfo';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
+import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap';
+
 
 const UserPage = (props) => (
   <div>

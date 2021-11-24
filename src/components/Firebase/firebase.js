@@ -53,7 +53,7 @@ class Firebase {
     })
   }
 
-  dbCreateQueue = (userId, name, description, announcement, location, vLocation, startTime, endTime) => {
+  dbCreateQueue = (userId, name, description, announcement, location, vLocation, startTime, endTime,lat, lng) => {
     let collection = this.db.collection("queue");
     let token = collection.doc().id;
     collection.doc(token).set({
@@ -67,6 +67,8 @@ class Firebase {
       isDeleted: false,
       ownerId: userId,
       tickets: [],
+      lat: lat,
+      lng: lng,
     });
     return this.db.collection("users").doc(userId).update({
         queues: firebase.firestore.FieldValue.arrayUnion(token)
@@ -117,7 +119,7 @@ class Firebase {
     })
   }
 
-  dbEditQueue = (queueId, queueName, description, announcement, queueLocation, queueVLocation, queueStartTime, queueEndTime) => {
+  dbEditQueue = (queueId, queueName, description, announcement, queueLocation, queueVLocation, queueStartTime, queueEndTime,lat, lng) => {
     return this.db.collection("queue").doc(queueId).update({
       name: queueName,
       description: description,
@@ -126,6 +128,8 @@ class Firebase {
       vLocation: queueVLocation,
       startTime: queueStartTime,
       endTime: queueEndTime,
+      lat: lat,
+      lng: lng,
     })
   }
 
