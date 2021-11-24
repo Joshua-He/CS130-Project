@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
 import { Modal } from 'react-bootstrap';
-import Button from '@restart/ui/esm/Button';
+import Button from 'react-bootstrap/Button';
 
 class EditTicket extends Component {
     constructor(props) {

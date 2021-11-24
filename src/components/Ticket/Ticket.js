@@ -112,3 +112,4 @@ const Ticket = compose(
 )(TicketView);
 
 export default Ticket;
+export { TicketView, Ticket };
