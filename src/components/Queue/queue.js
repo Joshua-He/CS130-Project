@@ -78,34 +78,40 @@ class QueueDashboard extends Component {
           <Card.Body>
             <QueueLocation lat={queueData.lat} lng={queueData.lng} location={queueData.location}/>
             <Card.Title>{queueData.name}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">{"ID:" + this.state.queueId}</Card.Subtitle>
+            <Card.Subtitle className="mb-2 text-muted">{"ID: " + this.state.queueId}</Card.Subtitle>
             <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
             <Card.Text>{queueData.description}</Card.Text>
-            {this.state.userData.isInstructor && 
-            <Button onClick={this.toggleEditQueue} >
-              Edit queue
-            </Button>}
+            <div className="d-grid gap-1">
+           
             {
               !queueData.isDeleted&&
-                <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
+              <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
                 enter
               </Button> 
             }
-          
+            {
+              this.state.userData.isInstructor && 
+              <Button onClick={this.toggleEditQueue} >
+                Edit queue
+              </Button>
+            }   
+            {
+              userData.isInstructor && !queueData.isDeleted &&
+              <Button variant="danger" onClick={this.deactivateQueue}>
+                deactivate
+              </Button> 
+            }
+            {
+              userData.isInstructor && queueData.isDeleted && 
+              <Button variant="primary"  onClick={this.reactivateQueue}>
+                reactivate
+              </Button> 
+            }
+            </div>
             <CreateQueuePopUp 
             show={this.state.editQueue} userData={this.state.userData} 
             onHide={this.toggleEditQueue}
             queueId = {this.state.queueId}/>
-            {userData.isInstructor && !queueData.isDeleted &&
-              <Button variant="danger" onClick={this.deactivateQueue}>
-            deactivate
-            </Button> 
-            }
-            {userData.isInstructor && queueData.isDeleted && 
-              <Button variant="primary" onClick={this.reactivateQueue}>
-            reactivate
-            </Button> 
-            }
           </Card.Body>
         </Card>
       </Col>
