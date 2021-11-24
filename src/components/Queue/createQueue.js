@@ -5,6 +5,9 @@ import { compose } from 'recompose';
 import { Modal} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { googleMapAPIKey } from '../../configuration';
+import GetGeocode from './geocode';
 
 class CreateQueue extends Component{
     constructor(props) {
@@ -17,6 +20,8 @@ class CreateQueue extends Component{
             queueVLocation:'',
             queueStartTime:'',
             queueEndTime:'',
+            lat:34.0689,
+            lng:-118.4452,
         };
     }
 
@@ -36,6 +41,8 @@ class CreateQueue extends Component{
                 queueVLocation: queueData.vLocation,
                 queueStartTime: queueData.startTime,
                 queueEndTime: queueData.endTime,
+                lat: 34.0689,
+                lng: -118.4452, 
             }
             );
             console.log("queue name is ",queueData)
@@ -45,6 +52,12 @@ class CreateQueue extends Component{
 
     changeQueueInformation = event => {
         this.setState({ [event.target.name]: event.target.value });
+    };
+
+    changeQueueLocation = (selected) => {
+        console.log("selected",selected)
+        this.setState({queueLocation: selected.label})
+        console.log("queuelocation state",this.state.queueLocation)
     };
     
     createQueue = () => { 
@@ -58,14 +71,24 @@ class CreateQueue extends Component{
             queueStartTime,
             queueEndTime,
         } = this.state; 
-        this.props.firebase
-        .dbCreateQueue(userId, queueName, description,announcement, 
-            queueLocation, queueVLocation, queueStartTime, queueEndTime)
+        
+        GetGeocode(queueLocation)
+        .then((location) => {
+            const {lat, lng} = location
+            this.setState({lat:lat,lng:lng})
+            return location
+        })
+        .then(location => {
+            return this.props.firebase
+            .dbCreateQueue(userId, queueName, description,announcement, 
+                queueLocation, queueVLocation, queueStartTime, queueEndTime, location.lat, location.lng)
+        })
         .then(() => {
             console.log("queue created succesfully!")
             this.props.onHide();
         })
         .catch(error => {
+            console.log(error)
             this.setState({ error });
         });
     }
@@ -80,8 +103,16 @@ class CreateQueue extends Component{
             queueStartTime,
             queueEndTime,
         } = this.state; 
-        this.props.firebase
-        .dbEditQueue(this.props.queueId, queueName, description,announcement, queueLocation, queueVLocation, queueStartTime, queueEndTime)
+        GetGeocode(queueLocation)
+        .then(location => {
+            const {lat, lng} = location
+            this.setState({lat:lat,lng:lng})
+            return location
+        })
+        .then(location => {
+            return this.props.firebase
+            .dbEditQueue(this.props.queueId, queueName, description,announcement, queueLocation, queueVLocation, queueStartTime, queueEndTime,location.lat,location.lng)
+        })
         .then(() => {
             console.log("queue saved succesfully!")
             this.props.onHide();
@@ -89,6 +120,7 @@ class CreateQueue extends Component{
         .catch(error => {
             this.setState({ error });
         });
+       
     }
 
     render(){
@@ -139,12 +171,12 @@ class CreateQueue extends Component{
                     type="text"
                 /><br/>
                 <label> Location </label><br/> 
-                <input
-                    name="queueLocation"
-                    value={queueLocation}
-                    onChange={this.changeQueueInformation}
-                    type="text"
-                /><br/>
+                <GooglePlacesAutocomplete apiKey={googleMapAPIKey.apiKey} 
+                apiOptions={{ language: 'en', region: 'us' }}
+                selectProps={{
+                    queueLocation, 
+                    onChange: this.changeQueueLocation,
+                  }}/><br/>
                 <label> Virtual location </label><br/> 
                 <input
                     name="queueVLocation"

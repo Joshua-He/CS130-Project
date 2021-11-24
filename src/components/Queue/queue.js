@@ -4,8 +4,8 @@ import { withFirebase } from '../Firebase';
 import {Button, Card, Col}from 'react-bootstrap';
 import { compose } from 'recompose';
 import * as ROUTES from '../../constants/routes';
-import EdiText from 'react-editext';
 import { CreateQueuePopUp } from '../Queue/createQueue';
+import QueueLocation from '../Queue/queueMap';
 
 class QueueDashboard extends Component {
   constructor(props) {
@@ -69,10 +69,14 @@ class QueueDashboard extends Component {
     } = this.state;
     let queue;
     if (queueData) {
+      if (!queueData.location){
+        queueData.location = queueData.vLocation
+      }
       queue =  
       <Col>
         <Card className="p-3" style={{ width: '22rem' }}>
           <Card.Body>
+            <QueueLocation lat={queueData.lat} lng={queueData.lng} location={queueData.location}/>
             <Card.Title>{queueData.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{"ID:" + this.state.queueId}</Card.Subtitle>
             <Card.Subtitle className="mb-2 text-muted">{queueData.startTime + ' - ' + queueData.endTime}</Card.Subtitle>
@@ -81,9 +85,13 @@ class QueueDashboard extends Component {
             <Button onClick={this.toggleEditQueue} >
               Edit queue
             </Button>}
-            <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
-              enter
-            </Button> 
+            {
+              !queueData.isDeleted&&
+                <Button variant="primary" disabled={queueData.isDeleted} onClick={this.enterQueue}>
+                enter
+              </Button> 
+            }
+          
             <CreateQueuePopUp 
             show={this.state.editQueue} userData={this.state.userData} 
             onHide={this.toggleEditQueue}

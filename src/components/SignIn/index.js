@@ -15,11 +15,11 @@ const SignInPage = (props) => (
     <Container>
     <Row>
       <Col className="align-self-center">
-        <Row><h1 class="text-center"> Welcome to Kyoo!</h1></Row>
+        <Row><h1 className="text-center"> Welcome to Kyoo!</h1></Row>
       </Col>
       <Col>
         <Row>
-        <h2 class="text-center">Sign In</h2>
+        <h2 className="text-center">Sign In</h2>
         </Row>
         <Row><SignInForm /></Row>
         <Row>
