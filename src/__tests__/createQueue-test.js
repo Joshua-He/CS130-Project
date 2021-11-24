@@ -6,7 +6,7 @@ describe('createQueue test ', () => {
     const componentWrapper = shallow (<CreateQueue/>)
     console.log(componentWrapper.debug())
     const instance = componentWrapper.instance()
-    const changeQueueNameSpy = jest.spyOn(instance,'changeQueueName')
+    const changeQueueInformationSpy = jest.spyOn(instance,'changeQueueInformation')
     const createQueueSpy = jest.spyOn(instance, 'createQueue').mockImplementation(()=>"create queue in firebase backend")
 
     it('create queue when create button is clicked', () => {
@@ -18,6 +18,6 @@ describe('createQueue test ', () => {
     it('change queue name when input changes', () => {
         instance.forceUpdate();
         componentWrapper.find('input[name="queueName"]').simulate('change', {target: {value: "CS130"}})
-        expect(changeQueueNameSpy).toHaveBeenCalled();
+        expect(changeQueueInformationSpy).toHaveBeenCalled();
     })
 })
