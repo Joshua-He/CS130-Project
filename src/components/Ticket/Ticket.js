@@ -70,12 +70,7 @@ class TicketView extends Component {
                     <Card.Text>
                     {ticketData.description}
                     </Card.Text>
-                    {
-                    owned&&!this.props.isinstructor&&
-                    <Button variant="danger" onClick={this.resolveTicket}>
-                    resolve
-                    </Button>
-                    }
+                    <div className="d-grid gap-2">
                     {
                     owned&&!this.props.isinstructor&&
                     <Button variant="primary" onClick={this.editTicket}>
@@ -88,6 +83,13 @@ class TicketView extends Component {
                     resolve
                     </Button>
                     } 
+                    {
+                    owned&&!this.props.isinstructor&&
+                    <Button variant="danger" onClick={this.resolveTicket}>
+                    resolve
+                    </Button>
+                    }
+                    </div>
                     <EditTicketPopUp onHide={this.editTicket} show={this.state.editTicket}
                      ticketdata={ticketData} ticketid={this.state.ticketId} editticket={this.updateTicketData}/> 
                 </Card.Body>
