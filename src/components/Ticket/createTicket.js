@@ -13,6 +13,7 @@ class CreateTicket extends Component{
             userId: this.props.userdata.userId,
             description: '',
             isResolved: false,
+            title: '',
             ticketId: '',
             queueId: this.props.queueid,
         };
@@ -23,9 +24,9 @@ class CreateTicket extends Component{
     };
 
     createTicket = () => {
-        const {ownerName, userId, description} = this.state;
+        const {ownerName, userId, description,title} = this.state;
         this.props.firebase
-        .dbCreateTicket(description, ownerName, userId)
+        .dbCreateTicket(title, description, ownerName, userId)
         .then((ticketRef) => {
             this.setState({ticketId: ticketRef.id})
             return ticketRef.id
@@ -42,7 +43,7 @@ class CreateTicket extends Component{
             return this.props.firebase.dbAddTicketToQueue(this.state.ticketId,this.state.queueId, ticketData.createdAt)
         })
         .then(() => {
-            this.setState({description: ''});
+            this.setState({description: '', title: ''});
         })
         .catch(error => {
             this.setState({ error });
@@ -50,6 +51,7 @@ class CreateTicket extends Component{
     }
     render(){   
         const {
+            title,
             description,
             ownerName,
             userId,
@@ -57,6 +59,7 @@ class CreateTicket extends Component{
         } = this.state;
         
         const isInvalid =
+        title === ''||
         description === '' ||
         ownerName === '' ||
         userId === '';
@@ -72,13 +75,21 @@ class CreateTicket extends Component{
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/* <label>Submit your question</label> */}
+                <label> Title </label><br/>
                 <input
+                    className="form-control form-control-inline"
+                    name="title"
+                    value={title}
+                    onChange={this.notifyChange}
+                    type="text"
+                /><br/>
+                <label> Question </label><br/>
+                <input
+                    className="form-control form-control-inline"
                     name="description"
                     value={description}
                     onChange={this.notifyChange}
                     type="text"
-                    placeholder="Ask your question here..."
                 />
             </Modal.Body>
             <Modal.Footer>

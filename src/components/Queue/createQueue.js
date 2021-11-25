@@ -156,6 +156,7 @@ class CreateQueue extends Component{
             <Modal.Body>
                 <label> Class Name </label><br/>
                 <input
+                    className="form-control form-control-inline"
                     name="queueName"
                     value={queueName}
                     onChange={this.changeQueueInformation}
@@ -164,6 +165,7 @@ class CreateQueue extends Component{
                 /><br/>
                 <label> Description </label><br/>
                 <input
+                    className="form-control form-control-inline"
                     name="description"
                     value={description}
                     onChange={this.changeQueueInformation}
@@ -178,6 +180,7 @@ class CreateQueue extends Component{
                   }}/><br/>
                 <label> Virtual location </label><br/> 
                 <input
+                    className="form-control form-control-inline"
                     name="queueVLocation"
                     value={queueVLocation}
                     onChange={this.changeQueueInformation} 
@@ -185,6 +188,7 @@ class CreateQueue extends Component{
                 /><br/>
                 <label> Start time </label><br/> 
                 <input
+                    className="form-control form-control-inline"
                     name="queueStartTime"
                     value={queueStartTime}
                     type="time"
@@ -193,6 +197,7 @@ class CreateQueue extends Component{
                 /><br/>
                 <label> End time </label><br/> 
                 <input
+                    className="form-control form-control-inline"
                     name="queueEndTime"
                     value={queueEndTime}
                     type="time"

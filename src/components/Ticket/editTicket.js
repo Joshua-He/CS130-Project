@@ -13,6 +13,7 @@ class EditTicket extends Component {
             description:this.props.ticketdata.description,
             ticketId:this.props.ticketid,
             error: null,
+            title: this.props.ticketdata.title,
         }
     }
 
@@ -21,13 +22,12 @@ class EditTicket extends Component {
     };
 
     edit = () => {
-        const { description, ticketId } = this.state;
-        console.log("ti",this.state)
+        const { description, ticketId, title } = this.state;
         this.props.firebase
             .dbEditTicket(description, ticketId)
             .then(() => {
                 console.log("ticket edited")
-                this.props.editticket(description);
+                this.props.editticket(title,description);
                 this.props.onHide();
             })
             .catch(error => {
@@ -37,12 +37,13 @@ class EditTicket extends Component {
 
     render() {
         const {
+            title,
             description,
             error,
         } = this.state
 
         const isInvalid =
-            description === ''
+            description === '' || title === ''
 
         return (
             <Modal
@@ -55,12 +56,21 @@ class EditTicket extends Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    <label> Title </label><br/>
                     <input
+                        className="form-control form-control-inline"
+                        name="title"
+                        value={title}
+                        onChange={this.notifyChange}
+                        type="text"
+                    /><br/>
+                    <label> Question </label><br/>
+                    <input
+                        className="form-control form-control-inline"
                         name="description"
                         value={description}
                         onChange={this.notifyChange}
-                        type="text"
-                        placeholder="Ask your question here..."
+                        type="text"      
                     />
                 </Modal.Body>
                 <Modal.Footer>

@@ -137,8 +137,9 @@ class Firebase {
     return this.db.collection("queue").doc(queueId);
   }
   
-  dbCreateTicket = (description, ownerName, userId) => {
+  dbCreateTicket = (title, description, ownerName, userId) => {
     return this.db.collection("ticket").add({
+      title: title,
       description: description,
       ownerName: ownerName,
       userId: userId,
@@ -147,8 +148,9 @@ class Firebase {
     })
   };
 
-  dbEditTicket = (description, ticketId) => {
+  dbEditTicket = (title, description, ticketId) => {
     return this.db.collection("ticket").doc(ticketId).update({
+      title: title,
       description: description,
     })
   };

@@ -65,7 +65,7 @@ class TicketView extends Component {
             <Col>
                 <Card className="p-3 mx-auto" style={{ width: '30rem' }}>
                 <Card.Body>
-                    <Card.Title>{ticketData.description}</Card.Title>
+                    <Card.Title>{ticketData.title}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{"created by: "+ ticketData.ownerName}</Card.Subtitle>
                     <Card.Subtitle className="mb-2 text-muted">{"created at: "+ ticketData.createdAt.toDate().toLocaleString("en-US", {timeZone: "America/Los_Angeles"})}</Card.Subtitle>
                     <Card.Text>
