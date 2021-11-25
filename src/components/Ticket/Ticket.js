@@ -16,12 +16,13 @@ class TicketView extends Component {
     }
 
     componentDidMount() {
+        console.log("component did mount")
         this.props.firebase
             .dbGetTicket(this.state.ticketId)
             .onSnapshot((snapShot) => {
                 let ticketData = snapShot.data()
                 this.setState({ ticketData:ticketData});
-                if (ticketData && ticketData.userId == this.props.userid){
+                if (ticketData && ticketData.userId == this.props.userid && !ticketData.isResolved){
                     this.setState({owned: true})
                     this.props.ticketcreated();
                 }
@@ -112,3 +113,4 @@ const Ticket = compose(
 )(TicketView);
 
 export default Ticket;
+export { TicketView, Ticket };
