@@ -67,7 +67,7 @@ class TicketView extends Component {
                 <Card.Body>
                     <Card.Title>{ticketData.description}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{"created by: "+ ticketData.ownerName}</Card.Subtitle>
-                    <Card.Subtitle className="mb-2 text-muted">{"created at: "+ ticketData.createdAt.toDate().toUTCString()}</Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted">{"created at: "+ ticketData.createdAt.toDate().toLocaleString("en-US", {timeZone: "America/Los_Angeles"})}</Card.Subtitle>
                     <Card.Text>
                     {ticketData.description}
                     </Card.Text>
