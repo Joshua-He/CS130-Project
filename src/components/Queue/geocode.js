@@ -1,9 +1,9 @@
 import Geocode from "react-geocode";
 import {
-    googleMapAPIKey
+    geoencodingKey
 } from '../../configuration';
 
-Geocode.setApiKey(googleMapAPIKey.apiKey);
+Geocode.setApiKey(geoencodingKey.apiKey);
 Geocode.setLanguage("en");
 Geocode.setRegion("us");
 
@@ -14,6 +14,9 @@ function GetGeocode(address) {
         .then((response) => {
             console.log(response)
             return response.results[0].geometry.location;
+        })
+        .catch((error) => {
+            console.log(error)
         })
 }
 export default GetGeocode;
