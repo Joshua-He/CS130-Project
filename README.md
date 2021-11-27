@@ -1,3 +1,6 @@
+## Kyoo
+Kyoo is a web application that allows students, TAs, Professors to have better office hour experience
+
 ## Available Scripts
 
 In the project directory, you can run:
