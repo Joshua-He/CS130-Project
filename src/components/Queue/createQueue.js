@@ -54,9 +54,7 @@ class CreateQueue extends Component{
     };
 
     changeQueueLocation = (selected) => {
-        console.log("selected",selected)
         this.setState({queueLocation: selected.label})
-        console.log("queuelocation state",this.state.queueLocation)
     };
     
     createQueue = () => { 
@@ -101,7 +99,8 @@ class CreateQueue extends Component{
             queueVLocation,
             queueStartTime,
             queueEndTime,
-        } = this.state; 
+        } = this.state;
+        
         GetGeocode(queueLocation)
         .then(location => {
             const {lat, lng} = location
@@ -134,6 +133,12 @@ class CreateQueue extends Component{
             queueStartTime,
             queueEndTime,
         } = this.state;
+
+        const isInvalid = 
+            description === ''
+            || queueStartTime === '' || queueEndTime ===''
+            || queueName === '';
+
         if (!this.props.queueId) {
             title = "Create New Office Hour Queue";
             onSave = this.createQueue;
@@ -207,7 +212,7 @@ class CreateQueue extends Component{
                
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={onSave}>Save</Button>
+                <Button disabled={isInvalid} name="createButton" onClick={onSave}>Save</Button>
                 <Button onClick={this.props.onHide}>Cancel</Button>
             </Modal.Footer>
             </Modal>

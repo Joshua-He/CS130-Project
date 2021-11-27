@@ -83,7 +83,7 @@ class SignInFormBase extends Component {
           <Form.Control type="password" name="password" placeholder="Password" value={password} onChange={this.notifyUpdate} />
         </Form.Group>
         <div className="d-grid gap-2">
-        <Button name="submitButton" variant="primary" type="submit">
+        <Button disabled={isInvalid} name="submitButton" variant="primary" type="submit">
           Sign In
         </Button>
         </div>

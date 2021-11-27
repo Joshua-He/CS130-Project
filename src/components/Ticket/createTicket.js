@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import { compose } from 'recompose';
-import { Modal} from 'react-bootstrap';
-import Button from '@restart/ui/esm/Button';
+import { Modal, Button} from 'react-bootstrap';
 
 class CreateTicket extends Component{
     constructor(props) {
@@ -93,7 +92,7 @@ class CreateTicket extends Component{
                 />
             </Modal.Body>
             <Modal.Footer>
-                <Button disabled={isInvalid} onClick={this.createTicket}>Save</Button>
+                <Button name="createButton" disabled={isInvalid} onClick={this.createTicket}>Save</Button>
                 <Button onClick={this.props.onHide}>Cancel</Button>
                 {error && <p>{error.message}</p>}
             </Modal.Footer>
@@ -107,3 +106,4 @@ const CreateTicketPopUp = compose(
 )(CreateTicket);
 
 export default CreateTicketPopUp;
+export {CreateTicket};

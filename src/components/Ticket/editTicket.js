@@ -74,7 +74,7 @@ class EditTicket extends Component {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button disabled={isInvalid} onClick={this.edit}>Save</Button>
+                    <Button name="editButton" disabled={isInvalid} onClick={this.edit}>Save</Button>
                     <Button onClick={this.props.onHide}>Cancel</Button>
                     {error && <p>{error.message}</p>}
                 </Modal.Footer>
@@ -88,3 +88,4 @@ const EditTicketPopUp = compose(
 )(EditTicket);
 
 export default EditTicketPopUp;
+export {EditTicket};

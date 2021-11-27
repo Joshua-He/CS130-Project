@@ -34,7 +34,6 @@ class JoinQueue extends Component{
             queueToken
         } = this.state; 
         const token = queueToken.trim();
-  
 
         this.props.firebase
         .dbExistQueue(token)
@@ -64,7 +63,8 @@ class JoinQueue extends Component{
             existQueue,
         } = this.state;
 
-        
+        const isInvalid = queueToken === '';
+
         return (
              <Modal
             show={this.props.show}
@@ -83,15 +83,12 @@ class JoinQueue extends Component{
                     onChange={this.changeQueueInformation}
                     type="text"
                 /><br/>
-                
                 {existQueue? 
                 null :
                 <div><label> Class token does not exist! Check token </label><br/></div>}
-                
-               
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={this.joinQueue}>Join</Button>
+                <Button name="joinButton" disabled={isInvalid} onClick={this.joinQueue}>Join</Button>
                 <Button onClick={
                     this.clearText
                     }>Cancel</Button>
