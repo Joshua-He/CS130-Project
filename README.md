@@ -9,7 +9,7 @@ Kyoo is a web application that allows students, TAs, Professors to have better o
 └── README.md
 ```
 
-## SRC Directory layout
+## src Directory layout
 ```
 .
 ├── ...
