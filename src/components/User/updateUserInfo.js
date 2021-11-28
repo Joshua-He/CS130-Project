@@ -55,12 +55,6 @@ class UpdateUserInfo extends Component{
                     type="text"
                     placeholder="Full name"
                 />
-                {/* <label>Are you an instructor?</label>
-                <select name="isInstructor" defaultValue={isInstructor}
-                    onChange={this.notifyChange}>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                </select> */}
             </Modal.Body>
             <Modal.Footer>
                 <Button disabled={isInvalid} onClick={this.update}>Save</Button>

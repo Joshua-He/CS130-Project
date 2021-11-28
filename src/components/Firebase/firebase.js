@@ -36,7 +36,7 @@ class Firebase {
     return this.db.collection("users").doc(userId).set({
       fullName: fullName,
       email: email,
-      isInstructor: isInstructor === "true" ? true : false,
+      isInstructor: isInstructor,
       userId: userId,
       queues: [],
     })

@@ -28,6 +28,7 @@ describe('ResolveTicket test for instructor ', () => {
     it('instructor is able to trigger resolve ticket', () => {
         instance.forceUpdate();
         componentWrapper.find('Button').simulate('click')
+        expect(instance.state.ticketData.isResolved === true);
         expect(resolveTicketSpy).toHaveBeenCalled();
     });
 })
@@ -54,6 +55,7 @@ describe('ResolveTicket tests for student ', () => {
     it('student is able to trigger resolveticket for his/her own ticket', () => {
         instance.forceUpdate();
         componentWrapper.find('Button').at(1).simulate('click')
+        expect(instance.state.ticketData.isResolved === true);
         expect(resolveTicketSpy).toHaveBeenCalled();
     });
 })

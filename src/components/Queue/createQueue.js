@@ -82,12 +82,27 @@ class CreateQueue extends Component{
         })
         .then(() => {
             console.log("queue created succesfully!")
-            this.props.onHide();
+            this.clearText();
         })
         .catch(error => {
             console.log(error)
             this.setState({ error });
         });
+    }
+
+    clearText = () => {
+        this.setState({
+            queueName: '',
+            description: '',
+            announcement:'',
+            queueLocation:'',
+            queueVLocation:'',
+            queueStartTime:'',
+            queueEndTime:'',
+            lat:34.0689,
+            lng:-118.4452,
+        });
+        this.props.onHide();
     }
 
     editQueue = () => {

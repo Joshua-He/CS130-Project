@@ -66,6 +66,12 @@ class SignUpFormBase extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  checkIsInstructor = () => {
+    this.setState({isInstructor: !this.state.isInstructor}, () => {
+      console.log(this.state)
+    });
+  }
+
   render() {
     const {
       fullName,
@@ -105,7 +111,7 @@ class SignUpFormBase extends Component {
           <Form.Control type="password" name="passwordTwo" placeholder="Password" value={passwordTwo} onChange={this.notifyChange} />
         </Form.Group>
         <Form.Group className="check" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" name="isInstructor" label="Are you an instructor?" placeholder="isInstructor" value="isInstructor" onChange={this.notifyChange} />
+          <Form.Check type="checkbox" name="isInstructor" label="Are you an instructor?" checked={this.state.isInstructor} onChange={this.checkIsInstructor} />
         </Form.Group>
 
         <div className="d-grid gap-2">
