@@ -149,6 +149,7 @@ class Firebase {
   };
 
   dbEditTicket = (title, description, ticketId) => {
+    console.log("inside db edit",ticketId)
     return this.db.collection("ticket").doc(ticketId).update({
       title: title,
       description: description,

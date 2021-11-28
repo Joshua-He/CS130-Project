@@ -38,13 +38,17 @@ class TicketView extends Component {
         })
     }
 
-    updateTicketData = (description) => {
-        let ticketData = this.state.ticketData;
+    updateTicketData = (title, description) => {
+        let ticketData = this.state.ticketData
         if(ticketData){
+            ticketData.title = title
             ticketData.description = description
             this.setState({
                 ticketData: ticketData
             })
+        }
+        else{
+            return
         }
     }
     editTicket = () => {

@@ -24,7 +24,7 @@ class EditTicket extends Component {
     edit = () => {
         const { description, ticketId, title } = this.state;
         this.props.firebase
-            .dbEditTicket(description, ticketId)
+            .dbEditTicket(title, description, ticketId)
             .then(() => {
                 console.log("ticket edited")
                 this.props.editticket(title,description);
